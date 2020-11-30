@@ -7,7 +7,15 @@ License: MIT + file LICENSE
 Imports: 
     config (>= 0.3),
     golem (>= 0.3.0),
-    shiny (>= 1.5.0)
+    shiny (>= 1.5.0),
+    htmltools,
+    leaflet
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)

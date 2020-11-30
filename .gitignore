@@ -3,3 +3,4 @@
 .DS_Store
 .Rproj.user
 data-raw/CERQ*
+inst/doc
