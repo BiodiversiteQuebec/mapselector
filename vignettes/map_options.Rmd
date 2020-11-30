@@ -23,9 +23,6 @@ library(rcartocolor)
 
 data("CERQ")
 
-CERQ
-
-
 # leaflet can make attractive colour palattes. 
 interp_pal <- leaflet::colorFactor(rcartocolor::carto_pal(12,"Prism"), domain = CERQ$NOM_PROV_N)
 
