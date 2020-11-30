@@ -25,11 +25,11 @@ golem::fill_desc(
   author_first_name = "Andrew", # Your First Name
   author_last_name = "MacDonald", # Your Last Name
   author_email = "a.a.m.macdonald@gmail.com", # Your Email
-  repo_url = NULL # The URL of the GitHub Repo (optional) 
+  repo_url = "https://github.com/ReseauBiodiversiteQuebec/mapselector" # The URL of the GitHub Repo (optional) 
 )     
 
 ## Set {golem} options ----
-golem::set_golem_options()
+golem::set_golem_options(golem_version = "0.0.1")
 
 ## Create Common Files ----
 ## See ?usethis for more information
