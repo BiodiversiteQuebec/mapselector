@@ -1,6 +1,6 @@
 # fucntion for making a leaflet map of the chosen region
 
-
+#' @importFrom magrittr `%>%`
 make_leaflet_map <- function() {
   CERQ <- mapselector::CERQ
   
@@ -9,17 +9,19 @@ make_leaflet_map <- function() {
   
   ## as a demo, make me a map
   
-  leaflet::leaflet(CERQ) %>%
+  leaflet::leaflet(CERQ,
+                   options = leaflet::leafletOptions(minZoom = 4.3)) %>%
     leaflet::addTiles() %>% # Affichage du fond de carte
-    leaflet::addPolygons(color = "darkblue", # couleur des limites des polygones
-                weight = 1,
-                smoothFactor = 0.5,
-                layerId = ~ NOM_PROV_N,
-                fillColor = ~ interp_pal(NOM_PROV_N), # couleur du remplissage des polygones
-                fillOpacity = 0.7,
-                highlightOptions = leaflet::highlightOptions(color = "white",
-                                                    weight = 4,
-                                                    # fillOpacity = 0.,
-                                                    bringToFront = TRUE)
+    leaflet::addPolygons(
+      color = "darkblue", # couleur des limites des polygones
+      weight = 1,
+      smoothFactor = 0.5,
+      layerId = ~ NOM_PROV_N,
+      fillColor = ~ interp_pal(NOM_PROV_N), # couleur du remplissage des polygones
+      fillOpacity = 0.7,
+      highlightOptions = leaflet::highlightOptions(color = "white",
+                                                   weight = 4,
+                                                   # fillOpacity = 0.,
+                                                   bringToFront = TRUE)
     )
 }
