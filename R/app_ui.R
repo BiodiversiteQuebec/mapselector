@@ -11,7 +11,7 @@ app_ui <- function(request) {
     # Your application UI logic 
     fluidPage(
       h1("Hello world, I'm `mapselector`"),
-      leaflet::leafletOutput("leafmap")
+      mod_map_select_ui("map_select_ui_1")
     )
   )
 }

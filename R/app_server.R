@@ -6,5 +6,5 @@
 #' @noRd
 app_server <- function( input, output, session ) {
   # Your application server logic 
-  output$leafmap <- leaflet::renderLeaflet(make_leaflet_map())
+  mod_map_select_server("map_select_ui_1")
 }

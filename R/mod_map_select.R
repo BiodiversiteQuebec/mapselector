@@ -10,7 +10,7 @@
 mod_map_select_ui <- function(id){
   ns <- NS(id)
   tagList(
-    
+    leaflet::leafletOutput(ns("map"))
   )
 }
     
@@ -20,7 +20,7 @@ mod_map_select_ui <- function(id){
 mod_map_select_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
- 
+    output$map <- leaflet::renderLeaflet(make_leaflet_map())
   })
 }
     
