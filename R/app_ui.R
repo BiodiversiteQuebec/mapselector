@@ -11,7 +11,8 @@ app_ui <- function(request) {
     # Your application UI logic 
     fluidPage(
       h1("Hello world, I'm `mapselector`"),
-      mod_map_select_ui("map_select_ui_1")
+      mod_map_select_ui("map_select_ui_1"),
+      mod_modal_make_ui("modal_make_ui_1")
     )
   )
 }

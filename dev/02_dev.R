@@ -20,6 +20,7 @@ usethis::use_package( "leaflet" )
 ## Add modules ----
 ## Create a module infrastructure in R/
 golem::add_module( name = "map_select" ) # Name of the module
+golem::add_module( name = "modal_make" ) # Name of the module
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*
