@@ -21,9 +21,12 @@ mod_modal_make_ui <- function(id){
 mod_modal_make_server <- function(id, region = reactive("this region")){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
-    output$words <- renderText(
-      paste0("you just clicked ",region() )
-    )
+    
+    observe({
+    if(!is.null( region() )){
+      showModal(dataModal( region() ))
+    }
+    })
   })
 }
     

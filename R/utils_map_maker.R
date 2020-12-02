@@ -10,7 +10,7 @@ make_leaflet_map <- function() {
   ## as a demo, make me a map
   
   leaflet::leaflet(CERQ,
-                   options = leaflet::leafletOptions(minZoom = 4.3)) %>%
+                   options = leaflet::leafletOptions(minZoom = 4)) %>%
     leaflet::addTiles() %>% # Affichage du fond de carte
     leaflet::addPolygons(
       color = "darkblue", # couleur des limites des polygones
