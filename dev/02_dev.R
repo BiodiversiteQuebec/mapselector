@@ -24,9 +24,9 @@ golem::add_module( name = "modal_make" ) # Name of the module
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*
-golem::add_fct( "helpers" ) 
 golem::add_utils( "map_maker" )
 golem::add_utils(  "modal_contents")
+golem::add_utils( "ui" )
 
 ## External resources
 ## Creates .js and .css files at inst/app/www

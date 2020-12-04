@@ -8,34 +8,22 @@ app_ui <- function(request) {
   tagList(
     golem_add_external_resources(),
     fillPage(
+      title_row(),
       fillRow(
-        flex=c(3,1,1),
-        fillCol(div(
-          class="left-header",
-          div(class="logo",
-              imageOutput("logo",
-                          height="70px")
-              ),
-          div(class="dash-title",
-              "Analyse de raréfaction")),
-          hover="Coléo"),
-        height="7vh"
-      ),
-    # Leave this function for adding external resources
-    # Your application UI logic 
-    
-      # mod_map_select_ui("map_select_ui_1"),
-    fillRow(id="main",
-            tabsetPanel(type = "tabs",
-                        tabPanel("Map",
-                                 leaflet::leafletOutput("map",
-                                                        height="90vh",
-                                                        width="80vw")
-                        ),
-                        tabPanel("Data download"#,
-                                 #div(downloadButton("DL_data"))
-                        )
-            )
+        flex=c(2,8),
+        id="main-row",
+        fillCol(id = "sidebar",
+                sidebar_row()
+                ),
+        fillCol(id="main",
+                tabsetPanel(type = "tabs",
+                            tab_bigvis()
+                            ,
+                            tabPanel("Data download",
+                                     div(downloadButton("DL_data"))
+                            )
+                )
+        )
       )
     )
   )
