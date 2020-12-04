@@ -16,22 +16,21 @@ title_row <- function(title = "Analyse de raréfaction"){
 
 sidebar_row <- function(){
   fillCol(id="sidebar",
-          div(
-            div(
+          tags$div(
+            tags$div(
               id="closebtn-div",
-              a(href="javascript:void(0)",
-                id="closebtn",
-                onclick="closeOpenNav()",'<')),
-            div(
+              tags$a(href="javascript:void(0)",
+                     id="closebtn",'<')),
+            tags$div(
               class="blue-badge",
               "Ce tableau de bord vise à tester les modèles de tableau de bord. "),
-            div(class="widget-div",
-                sliderInput("obs",
-                            "Nombre d'observations:",
-                            min = 0,
-                            max = 1000,
-                            value = 500
-                ))
+            tags$div(class="widget-div",
+                     sliderInput("obs",
+                                 "Nombre d'observations:",
+                                 min = 0,
+                                 max = 1000,
+                                 value = 500
+                     ))
           ))
 }
 
@@ -40,4 +39,9 @@ tab_bigvis <- function(title = "Map", outputFunction = leaflet::leafletOutput, i
            outputFunction(id,
                           height="90vh",
                           width="80vw"))
+}
+
+tab_gen <- function(title = "Data download", outputFunction = downloadButton, id = "DL_data"){
+  tabPanel(title,
+           outputFunction(id))
 }

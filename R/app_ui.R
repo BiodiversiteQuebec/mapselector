@@ -14,14 +14,11 @@ app_ui <- function(request) {
         id="main-row",
         fillCol(id = "sidebar",
                 sidebar_row()
-                ),
+        ),
         fillCol(id="main",
                 tabsetPanel(type = "tabs",
-                            tab_bigvis()
-                            ,
-                            tabPanel("Data download",
-                                     div(downloadButton("DL_data"))
-                            )
+                            tab_bigvis(),
+                            tab_gen()
                 )
         )
       )
@@ -44,7 +41,7 @@ golem_add_external_resources <- function(){
   )
  
   tags$head(
-    favicon(),
+    favicon(ext = 'png'),
     bundle_resources(
       path = app_sys('app/www'),
       app_title = 'mapselector'
