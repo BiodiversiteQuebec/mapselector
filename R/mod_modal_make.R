@@ -1,19 +1,4 @@
-#' modal_make UI Function
-#'
-#' @description A shiny Module.
-#'
-#' @param id,input,output,session Internal parameters for {shiny}.
-#'
-#' @noRd 
-#'
-#' @importFrom shiny NS tagList 
-mod_modal_make_ui <- function(id){
-  ns <- NS(id)
-  tagList(
-    # showModal(modalDialog(h3(ns("region"))))
-    textOutput(ns("words"))
-  )
-}
+
     
 #' modal_make Server Functions
 #'

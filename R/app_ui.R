@@ -6,14 +6,37 @@
 #' @noRd
 app_ui <- function(request) {
   tagList(
-    # Leave this function for adding external resources
     golem_add_external_resources(),
+    fillPage(
+      fillRow(
+        flex=c(3,1,1),
+        fillCol(div(
+          class="left-header",
+          div(class="logo",
+              imageOutput("logo",
+                          height="70px")
+              ),
+          div(class="dash-title",
+              "Analyse de raréfaction")),
+          hover="Coléo"),
+        height="7vh"
+      ),
+    # Leave this function for adding external resources
     # Your application UI logic 
-    fluidPage(
-      h1("Hello world, I'm `mapselector`"),
+    
       # mod_map_select_ui("map_select_ui_1"),
-      leaflet::leafletOutput("map"),
-      mod_modal_make_ui("modal_make_ui_1")
+    fillRow(id="main",
+            tabsetPanel(type = "tabs",
+                        tabPanel("Map",
+                                 leaflet::leafletOutput("map",
+                                                        height="90vh",
+                                                        width="80vw")
+                        ),
+                        tabPanel("Data download"#,
+                                 #div(downloadButton("DL_data"))
+                        )
+            )
+      )
     )
   )
 }
