@@ -7,29 +7,19 @@
 app_ui <- function(request) {
   tagList(
     golem_add_external_resources(),
-    fillPage(
-      dash_title(),
-      fillRow(
-        id="main-row",
-        flex=c(2,8),
-        fillCol(id = "sidebar",
-                sidebar_row(
-                  badge(),
-                  widgets(sliderInput("obs",
-                                      "Nombre d'observations:",
-                                      min = 0,
-                                      max = 1000,
-                                      value = 500),
-                          textInput("name", "What's your name?"))
-                )
-        ),
-        fillCol(id="main",
-                tabsetPanel(type = "tabs",
-                            tab_bigvis(),
-                            tab_gen()
-                )
-        )
-      )
+    tableau_de_bord(
+      dash_title(), 
+      dash_sidebar(
+        badge(),
+        sliderInput("obs",
+                    "Nombre d'observations:",
+                    min = 0,
+                    max = 1000,
+                    value = 500),
+        textInput("name", "What's your name?")
+      ), 
+      dash_tabs(tab_bigvis(),
+                tab_gen())
     )
   )
 }

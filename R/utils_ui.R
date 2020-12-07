@@ -1,15 +1,5 @@
 
 
-sidebar_row <- function(...){
-  fillCol(id = "sidebar",
-          tags$div(
-            tags$div(
-              id = "closebtn-div",
-              tags$a(href = "javascript:void(0)",
-                     id = "closebtn",'<')),
-            ...
-          ))
-}
 
 badge <- function(badge = TRUE,
                   text_badge = "Ce tableau de bord vise à tester les modèles de tableau de bord."){
@@ -55,3 +45,44 @@ dash_title <- function(title = "Analyse de raréfaction"){
       hover = "Coléo"),
     height = "7vh")
 }
+
+dash_tabs <- function(...){
+  fillCol(id="main",
+          tabsetPanel(type = "tabs", ...))
+}
+
+
+dash_sidebar <- function(badge, ...){
+  fillCol(id = "sidebar",
+          tags$div(
+            tags$div(
+              id = "closebtn-div",
+              tags$a(href = "javascript:void(0)",
+                     id = "closebtn",'<')),
+            badge,
+            widgets(...)
+          ))
+}
+
+tableau_de_bord <- function(titre = dash_title(), 
+         sidebar = dash_sidebar(
+           badge(),
+           sliderInput("obs",
+                       "Nombre d'observations:",
+                       min = 0,
+                       max = 1000,
+                       value = 500),
+           textInput("name", "What's your name?")
+         ), 
+         tabs = dash_tabs(tab_bigvis(),
+                          tab_gen())){
+  fillPage(
+    titre,
+    fillRow(
+      id = "main-row",
+      flex = c(2,8),
+      sidebar,
+      tabs)
+  )
+}
+  
