@@ -1,17 +1,3 @@
-title_row <- function(title = "Analyse de raréfaction"){
-  fillRow(
-    flex=c(3,1,1),
-    fillCol(
-      tags$div(
-        class="left-header",
-        tags$div(class = "logo", 
-                 tags$img(src ="www/coleo_test_small.png",
-                          height="70px")),
-        tags$div(class="dash-title", title)
-      ),
-      hover="Coléo"),
-    height="7vh")
-}
 
 
 sidebar_row <- function(...){
@@ -50,4 +36,22 @@ tab_bigvis <- function(title = "Map", outputFunction = leaflet::leafletOutput, i
 tab_gen <- function(title = "Data download", outputFunction = downloadButton, id = "DL_data"){
   tabPanel(title,
            outputFunction(id))
+}
+
+
+## dashboard functions
+
+dash_title <- function(title = "Analyse de raréfaction"){
+  fillRow(
+    flex = c(3,1,1),
+    fillCol(
+      tags$div(
+        class = "left-header",
+        tags$div(class = "logo", 
+                 tags$img(src = "www/coleo_test_small.png",
+                          height = "70px")),
+        tags$div(class = "dash-title", title)
+      ),
+      hover = "Coléo"),
+    height = "7vh")
 }

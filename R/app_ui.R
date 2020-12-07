@@ -8,7 +8,7 @@ app_ui <- function(request) {
   tagList(
     golem_add_external_resources(),
     fillPage(
-      title_row(),
+      dash_title(),
       fillRow(
         id="main-row",
         flex=c(2,8),
