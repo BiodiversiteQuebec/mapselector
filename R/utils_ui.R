@@ -16,7 +16,7 @@ widgets <- function(...){
   lapply(ll, widget_div_wrapper)
 }
 
-tab_bigvis <- function(title = "Map", outputFunction = leaflet::leafletOutput, id = "map"){
+tab_map <- function(title = "Map", outputFunction = leaflet::leafletOutput, id = "map"){
   tabPanel(title,
            outputFunction(id,
                           height="90vh",

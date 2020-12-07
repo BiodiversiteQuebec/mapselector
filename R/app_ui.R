@@ -8,7 +8,7 @@ app_ui <- function(request) {
   tagList(
     golem_add_external_resources(),
     tableau_de_bord(
-      dash_title(), 
+      dash_title(title = "Analyse de raréfaction"), 
       dash_sidebar(
         badge(),
         sliderInput("obs",
@@ -18,7 +18,7 @@ app_ui <- function(request) {
                     value = 500),
         textInput("name", "What's your name?")
       ), 
-      dash_tabs(tab_bigvis(),
+      dash_tabs(tab_map(),
                 tab_gen())
     )
   )
