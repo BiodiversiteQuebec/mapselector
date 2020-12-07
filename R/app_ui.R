@@ -10,10 +10,18 @@ app_ui <- function(request) {
     fillPage(
       title_row(),
       fillRow(
-        flex=c(2,8),
         id="main-row",
+        flex=c(2,8),
         fillCol(id = "sidebar",
-                sidebar_row()
+                sidebar_row(
+                  badge(),
+                  widgets(sliderInput("obs",
+                                      "Nombre d'observations:",
+                                      min = 0,
+                                      max = 1000,
+                                      value = 500),
+                          textInput("name", "What's your name?"))
+                )
         ),
         fillCol(id="main",
                 tabsetPanel(type = "tabs",

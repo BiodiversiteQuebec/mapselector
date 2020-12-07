@@ -14,24 +14,30 @@ title_row <- function(title = "Analyse de raréfaction"){
 }
 
 
-sidebar_row <- function(){
-  fillCol(id="sidebar",
+sidebar_row <- function(...){
+  fillCol(id = "sidebar",
           tags$div(
             tags$div(
-              id="closebtn-div",
-              tags$a(href="javascript:void(0)",
-                     id="closebtn",'<')),
-            tags$div(
-              class="blue-badge",
-              "Ce tableau de bord vise à tester les modèles de tableau de bord. "),
-            tags$div(class="widget-div",
-                     sliderInput("obs",
-                                 "Nombre d'observations:",
-                                 min = 0,
-                                 max = 1000,
-                                 value = 500
-                     ))
+              id = "closebtn-div",
+              tags$a(href = "javascript:void(0)",
+                     id = "closebtn",'<')),
+            ...
           ))
+}
+
+badge <- function(badge = TRUE,
+                  text_badge = "Ce tableau de bord vise à tester les modèles de tableau de bord."){
+  if (badge)  {tags$div(class = "blue-badge", text_badge)}
+  # test if badge = FALSE or text is NULL
+}
+
+widget_div_wrapper <- function(wid){
+  tags$div(class = "widget-div", wid)
+}
+
+widgets <- function(...){
+  ll <- list(...)
+  lapply(ll, widget_div_wrapper)
 }
 
 tab_bigvis <- function(title = "Map", outputFunction = leaflet::leafletOutput, id = "map"){
