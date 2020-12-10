@@ -32,7 +32,9 @@ start a git repository
 
     git init
 
-add [`tableauproto`]() as a remote
+add
+[`tableauproto`](https://github.com/ReseauBiodiversiteQuebec/tableauproto)
+as a remote
 
     git remote add proto link
 
