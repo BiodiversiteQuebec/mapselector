@@ -1,21 +1,17 @@
 
 
 
-badge <- function(badge = TRUE,
-                  text_badge = "Ce tableau de bord vise à tester les modèles de tableau de bord."){
-  if (badge)  {tags$div(class = "blue-badge", text_badge)}
-  # test if badge = FALSE or text is NULL
-}
-
 widget_div_wrapper <- function(wid){
   tags$div(class = "widget-div", wid)
 }
 
+#' @export
 widgets <- function(...){
   ll <- list(...)
   lapply(ll, widget_div_wrapper)
 }
 
+#' @export
 tab_map <- function(title = "Map", outputFunction = leaflet::leafletOutput, id = "map"){
   tabPanel(title,
            outputFunction(id,
@@ -23,6 +19,7 @@ tab_map <- function(title = "Map", outputFunction = leaflet::leafletOutput, id =
                           width="80vw"))
 }
 
+#' @export
 tab_gen <- function(title = "Data download", outputFunction = downloadButton, id = "DL_data"){
   tabPanel(title,
            outputFunction(id))
@@ -31,6 +28,7 @@ tab_gen <- function(title = "Data download", outputFunction = downloadButton, id
 
 ## dashboard functions
 
+#' @export
 dash_title <- function(title = "Analyse de raréfaction"){
   fillRow(
     flex = c(3,1,1),
@@ -46,12 +44,13 @@ dash_title <- function(title = "Analyse de raréfaction"){
     height = "7vh")
 }
 
+#' @export
 dash_tabs <- function(...){
   fillCol(id="main",
           tabsetPanel(type = "tabs", ...))
 }
 
-
+#' @export
 dash_sidebar <- function(badge, ...){
   fillCol(id = "sidebar",
           tags$div(
@@ -64,6 +63,7 @@ dash_sidebar <- function(badge, ...){
           ))
 }
 
+#' @export
 tableau_de_bord <- function(titre = dash_title(), 
          sidebar = dash_sidebar(
            badge(),
@@ -84,5 +84,13 @@ tableau_de_bord <- function(titre = dash_title(),
       sidebar,
       tabs)
   )
+}
+
+
+#' @export
+badge <- function(badge = TRUE,
+                  text_badge = "Ce tableau de bord vise à tester les modèles de tableau de bord."){
+  if (badge)  {tags$div(class = "blue-badge", text_badge)}
+  # test if badge = FALSE or text is NULL
 }
   

@@ -17,6 +17,7 @@ mod_map_select_ui <- function(id){
 #' map_select Server Functions
 #'
 #' @noRd 
+#' @export
 mod_map_select_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns

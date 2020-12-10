@@ -23,33 +23,46 @@ The goal of mapselector is to ...
 
 ## Installation
 
-You can install the released version of mapselector from [CRAN](https://CRAN.R-project.org) with:
+Install `mapselector` directly from github:
 
 ``` r
-install.packages("mapselector")
+remotes::install_github("mapselector")
 ```
 
-## Example
+## Workflow for creating a dashboard
 
-This is a basic example which shows you how to solve a common problem:
+Create a new folder for your project. NOTE as it seems we're all going the golem route, its important to use a valid R package name for the project.
+This means no dashs `-` or underlines `_`. 
+so `montableau` and NOT `mon_tableau`
 
-```{r example}
-library(mapselector)
-## basic example code
+```
+mkdir montableau
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+start a git repository
 
-```{r cars}
-summary(cars)
+```
+git init
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
+add [`tableauproto`]() as a remote
 
-You can also embed plots, for example:
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+```
+git remote add proto link
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
+pull in the template from `tableauproto`
+
+
+```
+git pull proto
+```
+
+this template is NOT an Rstudio project, but you should make it one now.
+Go to `New Project > Existing Directory` and choose `montableau/`
+
+Create a github repo called `montableau`, and copy URL
+
+In the file `dev/01_start.R`, edit any of the code you want: your name, the package name, and add the github URL.
+Consider using `here::here()` for 

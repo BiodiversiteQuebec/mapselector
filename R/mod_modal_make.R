@@ -3,6 +3,7 @@
 #' modal_make Server Functions
 #'
 #' @noRd 
+#' @export
 mod_modal_make_server <- function(id, region = reactive("this region")){
   moduleServer( id, function(input, output, session){
     ns <- session$ns

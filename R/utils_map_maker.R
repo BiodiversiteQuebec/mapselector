@@ -1,6 +1,7 @@
 # fucntion for making a leaflet map of the chosen region
 
 #' @importFrom magrittr `%>%`
+#' @export
 make_leaflet_map <- function() {
   CERQ <- mapselector::CERQ
   
