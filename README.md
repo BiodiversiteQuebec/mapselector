@@ -16,7 +16,7 @@ The goal of mapselector is to …
 Install `mapselector` directly from github:
 
 ``` r
-remotes::install_github("mapselector")
+remotes::install_github("ReseauBiodiversiteQuebec/mapselector")
 ```
 
 ## Workflow for creating a dashboard
