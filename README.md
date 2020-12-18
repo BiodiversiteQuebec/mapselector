@@ -9,8 +9,7 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-The goal of mapselector is to facilitate the process of giving all the
-dashboards the same appearance\!
+The goal of mapselector is to …
 
 ## Installation
 
@@ -49,14 +48,5 @@ Go to `New Project > Existing Directory` and choose `montableau/`
 Create a github repo called `montableau`, and copy URL
 
 In the file `dev/01_start.R`, edit any of the code you want: your name,
-the package name, and add the github URL.
-
-![](https://imgur.com/a/ZttnoNG)
-
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/ZttnoNG" data-context="false">
-
-<a href="//imgur.com/a/ZttnoNG"></a>
-
-</blockquote>
-
-<script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+the package name, and add the github URL. Consider using `here::here()`
+for
