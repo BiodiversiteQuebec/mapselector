@@ -51,7 +51,7 @@ Create a github repo called `montableau`, and copy URL
 In the file `dev/01_start.R`, edit any of the code you want: your name,
 the package name, and add the github URL.
 
-![](https://imgur.com/a/ZttnoNG)
+[![Capture-d-e-cran-le-2020-12-18-a-06-38-39.png](https://i.postimg.cc/L4vL1rwX/Capture-d-e-cran-le-2020-12-18-a-06-38-39.png)](https://postimg.cc/z3bymPJZ)
 
 <blockquote class="imgur-embed-pub" lang="en" data-id="a/ZttnoNG" data-context="false">
 
