@@ -37,11 +37,12 @@ dash_title <- function(title = "Analyse de raréfaction"){
         class = "left-header",
         tags$div(class = "logo", 
                  tags$img(src = "www/coleo_test_small.png",
-                          height = "70px")),
+                          height = "60px")),
         tags$div(class = "dash-title", title)
       ),
       hover = "Coléo"),
-    height = "7vh")
+    height = "100px",
+    class= "top-header")
 }
 
 #' @export
