@@ -17,6 +17,8 @@
 ## Add one line by package you want to add as dependency
 usethis::use_package( "leaflet" )
 usethis::use_dev_package("golem")
+usethis::use_package( "assertthat", type = "Suggests")
+usethis::use_package( "sf", type = "Suggests")
 
 ## Add modules ----
 ## Create a module infrastructure in R/
@@ -28,6 +30,8 @@ golem::add_module( name = "modal_make" ) # Name of the module
 golem::add_utils( "map_maker" )
 golem::add_utils(  "modal_contents")
 golem::add_utils( "ui" )
+golem::add_utils( "region" )
+
 
 ## External resources
 ## Creates .js and .css files at inst/app/www
