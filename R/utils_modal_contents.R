@@ -1,14 +1,9 @@
 
 #' @export
-dataModal <- function(region, vis_function = ipso_zoo, ...){
+dataModal <- function(region, ...){
   modalDialog(
     h3(region),
-    tabsetPanel(type = "tabs",
-                tabPanel("Visualisation",
-                         vis_function(...)
-                         ),
-                tabPanel("Données",div("Données ici"))
-    )
+    tabsetPanel(type = "tabs",...)
   )
 }
 
