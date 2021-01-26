@@ -8,6 +8,7 @@ app_server <- function( input, output, session ){
   # Your application server logic 
   # mod_map_select_server("map_select_ui_1")
   output$map <- leaflet::renderLeaflet(make_leaflet_map())
+  chosen_region <- reactive({input$map_shape_click$id})
   mod_modal_make_server("modal_make_ui_1", 
                         region = reactive(input$map_shape_click$id),
                         # here place all the tabs you want in your final modal! 
@@ -19,9 +20,9 @@ app_server <- function( input, output, session ){
                         ## could also be html elements
                         tabPanel(title = "C'est un tab",
                                  div("Bien sur c'est un tab")),
-                        ## can also (probably should?) include a reactive input from
+                        ## can also (probably should?) include a reactive input from the selected map region
                         tabPanel(title = "ou suis-je",
-                                 renderText({paste("tu est sur", input$map_shape_click$id)})
+                                 renderText({paste("tu est sur", chosen_region())})
                         )
                         )
 }
