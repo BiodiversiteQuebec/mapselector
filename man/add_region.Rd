@@ -9,6 +9,9 @@ add_region(obs_data)
 \arguments{
 \item{obs_data}{a dataframe of observations}
 }
+\value{
+the same dataframe with one new column, NOM_PROV_N. This new column contains the French names of the natural provinces of Quebec
+}
 \description{
 This function adds the CERQ province names to any dataframe.
 }

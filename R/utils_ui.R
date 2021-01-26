@@ -52,14 +52,14 @@ dash_tabs <- function(...){
 }
 
 #' @export
-dash_sidebar <- function(badge, ...){
+dash_sidebar <- function(badge_function, ...){
   fillCol(id = "sidebar",
           tags$div(
             tags$div(
               id = "closebtn-div",
               tags$a(href = "javascript:void(0)",
                      id = "closebtn",'<')),
-            badge,
+            badge_function,
             widgets(...)
           ))
 }
@@ -75,7 +75,7 @@ tableau_de_bord <- function(titre = dash_title(),
                        value = 500),
            textInput("name", "What's your name?")
          ), 
-         tabs = dash_tabs(tab_bigvis(),
+         tabs = dash_tabs(tab_map(),
                           tab_gen())){
   fillPage(
     titre,
@@ -89,7 +89,7 @@ tableau_de_bord <- function(titre = dash_title(),
 
 
 #' @export
-badge <- function(badge = TRUE,
+badge <- function(use_badge = TRUE,
                   text_badge = "Ce tableau de bord vise à tester les modèles de tableau de bord."){
   if (badge)  {tags$div(class = "blue-badge", text_badge)}
   # test if badge = FALSE or text is NULL

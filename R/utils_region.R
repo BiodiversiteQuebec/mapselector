@@ -16,12 +16,13 @@
 #' 
 #' @param obs_data a dataframe of observations
 #' @return the same dataframe with one new column, NOM_PROV_N. This new column contains the French names of the natural provinces of Quebec
-
+#' 
+#' @export
 add_region <- function(obs_data){
   assertthat::assert_that(
-    assertthat::has_name(data_of_obs, c("longitude", "latitude"))
+    assertthat::has_name(obs_data, c("longitude", "latitude"))
   )
-  data_of_obs %>% 
+  obs_data %>% 
     # needs to have a long and lat column 
     sf::st_as_sf(coords = c("longitude", "latitude")) %>% # set coordinates
     # this CRS could be set in some general place in mapselector and then modified only once.
