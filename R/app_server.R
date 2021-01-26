@@ -10,7 +10,10 @@ app_server <- function( input, output, session ){
   output$map <- leaflet::renderLeaflet(make_leaflet_map())
   chosen_region <- reactive({input$map_shape_click$id})
   mod_modal_make_server("modal_make_ui_1", 
-                        region = reactive(input$map_shape_click$id),
+                        # this reactive value is passed inside the module
+                        # note you but the reactive value here, not its value, 
+                        # which you would get with chosen_region()
+                        region = chosen_region,
                         # here place all the tabs you want in your final modal! 
                         ## this can be a function which returns a reactive output (e.g. renderPlotly)
                         tabPanel(title = "Visualization",
