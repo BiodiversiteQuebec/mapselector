@@ -9,7 +9,9 @@ Imports:
     golem (>= 0.3.0),
     shiny (>= 1.5.0),
     htmltools,
-    leaflet
+    leaflet,
+    raster,
+    sf
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
