@@ -66,17 +66,20 @@ dash_sidebar <- function(badge_function, ...){
 
 #' @export
 tableau_de_bord <- function(titre = dash_title(), 
-         sidebar = dash_sidebar(
-           badge(),
-           sliderInput("obs",
-                       "Nombre d'observations:",
-                       min = 0,
-                       max = 1000,
-                       value = 500),
-           textInput("name", "What's your name?")
-         ), 
-         tabs = dash_tabs(tab_map(),
-                          tab_gen())){
+                            sidebar = 
+                              dash_sidebar(
+                                badge(),
+                                sliderInput(
+                                  "obs",
+                                  "Nombre d'observations:",
+                                  min = 0,
+                                  max = 1000,
+                                  value = 500),
+                                textInput("name", "What's your name?")
+                              ), 
+                            tabs = dash_tabs(tab_map(),
+                                             tab_gen()))
+{
   fillPage(
     titre,
     fillRow(
@@ -91,7 +94,7 @@ tableau_de_bord <- function(titre = dash_title(),
 #' @export
 badge <- function(use_badge = TRUE,
                   text_badge = "Ce tableau de bord vise à tester les modèles de tableau de bord."){
-  if (badge)  {tags$div(class = "blue-badge", text_badge)}
+  if (use_badge)  {tags$div(class = "blue-badge", text_badge)}
   # test if badge = FALSE or text is NULL
 }
   

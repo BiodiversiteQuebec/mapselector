@@ -4,13 +4,20 @@
 #'
 #' @noRd 
 #' @export
-mod_modal_make_server <- function(id, region = reactive("this region")){
+mod_modal_make_server <- function(id, 
+                                  region = reactive("this region"),
+                                  ...){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
     observe({
-    if(!is.null( region() )){
-      showModal(dataModal( region() ))
+    if (!is.null( region())) {
+      showModal(
+        dataModal(
+          # first argument to dataModal is the region selected on the map
+          region(),
+          ...
+          ))
     }
     })
   })
