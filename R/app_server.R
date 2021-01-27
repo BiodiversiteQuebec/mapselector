@@ -23,7 +23,9 @@ app_server <- function( input, output, session ){
                         ## could also be html elements
                         tabPanel(title = "C'est un tab",
                                  div("Bien sur c'est un tab")),
-                        ## can also (probably should?) include a reactive input from the selected map region
+                        ## can also (probably should?) include a reactive input from the selected map region.
+                        ## NOTE that if you use a render function here, in tabpanel, pass in the value (use parentheses) 
+                        ### but if you write a function with a render function _inside_ pass in the reactive itself (no parentheses)
                         tabPanel(title = "ou suis-je",
                                  renderText({paste("tu est sur", chosen_region())})
                         )
