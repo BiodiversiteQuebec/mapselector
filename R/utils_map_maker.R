@@ -18,12 +18,13 @@ make_leaflet_map <- function() {
       weight = 1,
       smoothFactor = 0.5,
       layerId = ~ NOM_PROV_N,
-      fillColor = "lightblue", # couleur du remplissage des polygones
-      fillOpacity = 0.7,
+      fillColor = "#2571BB", # couleur du remplissage des polygones
+      fillOpacity = 0.4,
       highlightOptions = leaflet::highlightOptions(color = "white",
-                                                   fillColor = "darkblue",
-                                                   weight = 4,
-                                                   # fillOpacity = 0.,
+                                                   fillColor = "#2571BB",
+                                                   weight = 3,
+                                                   opacity = 1,
+                                                   fillOpacity = 1,
                                                    bringToFront = TRUE)
     )
 }
