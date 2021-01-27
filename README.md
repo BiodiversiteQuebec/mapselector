@@ -1,6 +1,4 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # mapselector
 
 <!-- badges: start -->
@@ -10,7 +8,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- badges: end -->
 
 The goal of mapselector is to facilitate the process of giving all the
-dashboards the same appearance\!
+dashboards the same appearance!
 
 ## Installation
 
@@ -28,12 +26,12 @@ The workflow actually relies on TWO github based resources: this one,
 
 **tl;dr**: We have two github resources for managing the dashboards.
 
-  - tableauproto is a github repo. It is a rudimentary golem app that
+-   tableauproto is a github repo. It is a rudimentary golem app that
     needs customization. Its main goal is to share Guillaume’s custom JS
     and CSS. Begin your project by adding it as a remote called `proto`.
     Keep it up to date with `git pull proto`
 
-  - mapselector is an R package hosted on github. Its job is to connect,
+-   mapselector is an R package hosted on github. Its job is to connect,
     via functions, the custom CSS and the Shiny code. Install it with
     `remotes::install_github("ReseauBiodiversiteQuebec/mapselector")`
     and keep it up to date that way. We’ll try to keep the version
@@ -103,9 +101,11 @@ will be a relatively simple transformation.
 
 However, if you have a data processing step that you think is useful to
 everyone, please add it to `mapselector` so that everyone can use it
-without rewriting it\!
+without rewriting it!
 
 If you have a UI approach that you think works really well, consider
-creating a module and also adding *that* to `mapselector`\! Everyone
+creating a module and also adding *that* to `mapselector`! Everyone
 (should) have write access to this repo. Feel free to create a branch
 and/or message Andrew.
+
+## What you need to edit
