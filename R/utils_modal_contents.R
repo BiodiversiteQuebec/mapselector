@@ -8,7 +8,7 @@ dataModal <- function(region, ...){
 }
 
 ipso_zoo <- function(...){
-  # browser()
+  
   plotly::renderPlotly(
     plotly::plot_ly(
       x = c("giraffes", "orangutans", "monkeys"),
