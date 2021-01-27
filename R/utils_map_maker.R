@@ -48,7 +48,7 @@ make_leaflet_sdm <- function(sdm=NULL) {
   map_qc = leaflet::leaflet(options = leaflet::leafletOptions(minZoom=4)) %>%
                 leaflet::addTiles() %>%
                 leaflet::addRasterImage(sdm, color = pal, project=FALSE, opacity = 0.7) %>%
-                leaflet::addLegend(pal = pal_legend, values = seq(max_int,min_int, -1*(max_int-min_int)/100), title = "Ratio d'intensité",
+                leaflet::addLegend(pal = pal_legend, values = seq(max_int,min_int, -1*(max_int-min_int)/100), title = "Ratio de probabilité d'occurrence",
                 labFormat = leaflet::labelFormat(transform = function(x) sort(x, decreasing = TRUE)), group = "Distribution", layerId = "distr_legend", opacity=1) %>%
                 leaflet::fitBounds(lng1 = -79.76330, lat1 = 44.99136, lng2 = -56.93868, lat2 = 62.58191)
 }
