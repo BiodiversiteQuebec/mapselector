@@ -50,7 +50,7 @@ make_leaflet_sdm <- function(sdm=NULL) {
                 leaflet::addRasterImage(sdm, color = pal, project=FALSE, opacity = 0.7) %>%
                 leaflet::addLegend(pal = pal_legend, values = seq(max_int,min_int, -1*(max_int-min_int)/100), title = "Ratio d'intensité",
                 labFormat = leaflet::labelFormat(transform = function(x) sort(x, decreasing = TRUE)), group = "Distribution", layerId = "distr_legend", opacity=1) %>%
-                leaflet::setView(lng=-68.35099, lat=53.786635, zoom = 4)
+                leaflet::fitBounds(lng1 = -79.76330, lat1 = 44.99136, lng2 = -56.93868, lat2 = 62.58191)
 }
 
 # Ceiling and floor for intervals in raster legend
@@ -73,5 +73,5 @@ nbr_dec <- function(x) {
 make_leaflet_empty <- function() {  
   leaflet::leaflet(options = leaflet::leafletOptions(minZoom = 4), ) %>%
     leaflet::addTiles() %>% # Affichage du fond de carte
-    leaflet::setView(lng=-68.35099, lat=53.786635, zoom = 4)
+    leaflet::fitBounds(lng1 = -79.76330, lat1 = 44.99136, lng2 = -56.93868, lat2 = 62.58191)
 }
