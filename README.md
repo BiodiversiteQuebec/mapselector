@@ -86,7 +86,28 @@ In many of our previous shiny apps, the `app.R` file holds a lot of data process
 
 -   **edit the main page:** in `app_ui` you are able to modify the main page of the app. This is where you define:
 
-    -   The Title
+    -   The Title. Here you need to change two things:
+
+        -   In `app_ui`, modify the argument `title` of `dash_title` In the app, this will appear on the top of the screen.
+
+            ``` r
+            app_ui <- function(request) {
+              tagList(
+                golem_add_external_resources(),
+                tableau_de_bord(
+                  dash_title(title = "Analyse de raréfaction"), 
+            ```
+
+        -   in `golem_add_external_resources`, modify the value of `app_title` . In the app, this is the name of the browser tab
+
+            ``` r
+              tags$head(
+                favicon(ext = 'png'),
+                bundle_resources(
+                  path = app_sys('app/www'),
+                  app_title = 'mapselector'
+                )
+            ```
 
     -   The content of the **sidebar**:
 
