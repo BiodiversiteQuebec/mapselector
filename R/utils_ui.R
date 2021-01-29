@@ -12,17 +12,18 @@ widgets <- function(...){
 }
 
 #' @export
-tab_map <- function(title = "Map", outputFunction = leaflet::leafletOutput, id = "map"){
+tab_map <- function(title = "Map", outputFunction = leaflet::leafletOutput, id = "map", ...){
   tabPanel(title,
            outputFunction(id,
                           height="90vh",
-                          width="80vw"))
+                          width="80vw"),
+           ...)
 }
 
 #' @export
-tab_gen <- function(title = "Data download", outputFunction = downloadButton, id = "DL_data"){
+tab_gen <- function(title = "Data download", outputFunction = downloadButton, id = "DL_data",...){
   tabPanel(title,
-           outputFunction(id))
+           outputFunction(id),...)
 }
 
 
@@ -48,7 +49,7 @@ dash_title <- function(title = "Analyse de raréfaction"){
 #' @export
 dash_tabs <- function(...){
   fillCol(id="main",
-          tabsetPanel(type = "tabs", ...))
+          tabsetPanel(id ="tabs", type = "tabs", ...))
 }
 
 #' @export
@@ -98,3 +99,11 @@ badge <- function(use_badge = TRUE,
   # test if badge = FALSE or text is NULL
 }
   
+## colours
+
+pal <- c( "amphibiens" = "#56B4E9", 
+         "mammifères" =   "#D55E00", 
+         "oiseaux"    =  "#E69F00", 
+         "poissons"   =    "#0072B2", 
+         "reptiles"   = "#009E73",
+         "#999999")
