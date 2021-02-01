@@ -31,6 +31,7 @@ golem::add_utils( "map_maker" )
 golem::add_utils(  "modal_contents")
 golem::add_utils( "ui" )
 golem::add_utils( "region" )
+golem::add_utils( "mapselector_dev" )
 
 
 ## External resources
