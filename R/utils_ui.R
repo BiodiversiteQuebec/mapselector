@@ -37,7 +37,7 @@ dash_title <- function(title = "Analyse de raréfaction"){
       tags$div(
         class = "left-header",
         tags$div(class = "logo", 
-                 tags$img(src = "www/coleo_test_small.png",
+                 tags$img(src = "https://coleo.biodiversite-quebec.ca/apps/shiny-src/coleo_test_small.png",
                           height = "60px")),
         tags$div(class = "dash-title", title)
       ),
