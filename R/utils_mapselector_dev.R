@@ -17,8 +17,6 @@ mapselector_app_ui_starter <- function(){
 #' @noRd
 app_ui <- function(request) {
   tagList(
-    includeCSS(\"https://coleo.biodiversite-quebec.ca/apps/shiny-src/style.css\"),
-    includeScript(\"https://coleo.biodiversite-quebec.ca/apps/shiny-src/tableau.js\"),
     golem_add_external_resources(),
     tableau_de_bord(
       dash_title(title = \"Analyse de raréfaction\"), 
