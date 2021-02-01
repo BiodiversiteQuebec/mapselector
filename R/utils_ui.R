@@ -82,8 +82,10 @@ tableau_de_bord <- function(titre = dash_title(),
                                              tab_gen()))
 {
   fillPage(
-    includeCSS("https://coleo.biodiversite-quebec.ca/apps/shiny-src/style.css"),
-    includeScript("https://coleo.biodiversite-quebec.ca/apps/shiny-src/tableau.js"),
+    tags$head(
+                tags$link(rel = "stylesheet", type = "text/css", href = "https://coleo.biodiversite-quebec.ca/apps/shiny-src/style.css"),
+                tags$script(src = "https://coleo.biodiversite-quebec.ca/apps/shiny-src/tableau.js")
+    ),
     titre,
     fillRow(
       id = "main-row",
