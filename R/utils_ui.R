@@ -17,11 +17,7 @@ tab_map <- function(title = "Map", outputFunction = leaflet::leafletOutput, id =
   
     tabPanel(title,
              tags$div(class = "main-map",
-                      outputFunction(id,
-                                     # delete these soon
-                                     height="90vh",
-                                     width="80vw"
-                                     )
+                      outputFunction(id)
              )
     )
 }
