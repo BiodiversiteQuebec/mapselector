@@ -11,13 +11,19 @@ widgets <- function(...){
   lapply(ll, widget_div_wrapper)
 }
 
+
 #' @export
-tab_map <- function(title = "Map", outputFunction = leaflet::leafletOutput, id = "map", ...){
-  tabPanel(title,
-           outputFunction(id,
-                          height="90vh",
-                          width="80vw"),
-           ...)
+tab_map <- function(title = "Map", outputFunction = leaflet::leafletOutput, id = "map"){
+  
+    tabPanel(title,
+             tags$div(class = "main-map",
+                      outputFunction(id,
+                                     # delete these soon
+                                     height="90vh",
+                                     width="80vw"
+                                     )
+             )
+    )
 }
 
 #' @export
@@ -46,8 +52,12 @@ dash_title <- function(title = "Analyse de raréfaction"){
     class= "top-header")
 }
 
+# this function needs to count the tabs
 #' @export
 dash_tabs <- function(...){
+  list(...)
+  
+  
   fillCol(id="main",
           tabsetPanel(id ="tabs", type = "tabs", ...))
 }
