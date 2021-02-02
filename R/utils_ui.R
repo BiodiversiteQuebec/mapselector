@@ -15,11 +15,11 @@ widgets <- function(...){
 #' @export
 tab_map <- function(title = "Map", outputFunction = leaflet::leafletOutput, id = "map"){
   
-    tabPanel(title,
-             tags$div(class = "main-map",
-                      outputFunction(id)
-             )
-    )
+  tabPanel(title,
+           tags$div(class = "main-map",
+                    outputFunction(id)
+           )
+  )
 }
 
 #' @export
@@ -51,11 +51,23 @@ dash_title <- function(title = "Analyse de raréfaction"){
 # this function needs to count the tabs
 #' @export
 dash_tabs <- function(...){
-  list(...)
   
+  list_of_tabs <- list(...)
+  tab_seq <- seq_len(length(list_of_tabs))
   
-  fillCol(id="main",
-          tabsetPanel(id ="tabs", type = "tabs", ...))
+  tabclasses <- paste0("maintab-", tab_seq)
+  
+  for (i in tab_seq){
+    list_of_tabs[[i]] <- htmltools::tagAppendAttributes(
+      list_of_tabs[[i]], 
+      class = tabclasses[i])
+  }
+  
+  tabfun <- function(...) tabsetPanel(id ="tabs", type = "tabs", ...)
+  
+  tabpanel <- do.call(tabfun, list_of_tabs)
+  
+  fillCol(id="main",tabpanel)
 }
 
 #' @export
