@@ -52,25 +52,33 @@ dash_title <- function(title = "Analyse de raréfaction"){
 #' @export
 dash_tabs <- function(...){
   
+  tabpanel <- add_class_tabs(suffix = "maintab-", ...)
+
+  
+  fillCol(id="main",tabpanel)
+}
+
+# function that takes in tabs as dots and returns a tabpanel, with each tab given a suffix and a number
+add_class_tabs <-  function(suffix = "maintab-", ...){
   list_of_tabs <- list(...)
   tab_seq <- seq_len(length(list_of_tabs))
   
   tabclasses <- paste0("maintab-", tab_seq)
   
-  for (i in tab_seq){
+  for (i in tab_seq) {
     list_of_tabs[[i]] <- htmltools::tagAppendAttributes(
       list_of_tabs[[i]], 
       class = tabclasses[i])
   }
   
-  tabfun <- function(...) tabsetPanel(id ="tabs", type = "tabs", ...)
+  tabfun <- function(...) tabsetPanel(id = "tabs", type = "tabs", ...)
   
   tabpanel <- do.call(tabfun, list_of_tabs)
-  
-  fillCol(id="main",tabpanel)
-}
 
-#' @export
+  return(tabpanel)
+}
+    
+  #' @export
 dash_sidebar <- function(badge_function, ...){
   fillCol(id = "sidebar",
           tags$div(

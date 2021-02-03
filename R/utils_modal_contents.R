@@ -1,9 +1,10 @@
 
 #' @export
-dataModal <- function(region, ...){
+dataModal <- function(region, title_fmt, ...){
+  modaltitle <- sprintf(title_fmt, region)
   modalDialog(
-    h3(region),
-    tabsetPanel(type = "tabs",...)
+    h3(modaltitle),
+    add_class_tabs(suffix = "modaltab-", ...)
   )
 }
 

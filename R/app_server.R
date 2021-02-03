@@ -14,6 +14,8 @@ app_server <- function( input, output, session ){
                         # note you but the reactive value here, not its value, 
                         # which you would get with chosen_region()
                         region = chosen_region,
+                        # give the title that you want for the modal
+                        title_format_pattern = "Visualization for %s",
                         # here place all the tabs you want in your final modal! 
                         ## this can be a function which returns a reactive output (e.g. renderPlotly)
                         tabPanel(title = "Visualization",
