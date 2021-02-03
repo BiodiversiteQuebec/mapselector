@@ -11,13 +11,29 @@ widgets <- function(...){
   lapply(ll, widget_div_wrapper)
 }
 
-
+#' Create a leaflet map
+#' 
+#' This map creates a leaflet map. It takes an optional list of widgets to display on the map and 
+#' places them on top. 
+#' 
+#' 
 #' @export
-tab_map <- function(title = "Map", outputFunction = leaflet::leafletOutput, id = "map"){
+tab_map <- function(title = "Map",
+                    id = "map",
+                    outputFunction = leaflet::leafletOutput,
+                    ## any on-map widgets go here:
+                    on_map_widgets = list(NULL)
+                    ){
+  
+  
+  panel_widgets <- function(widgets) absolutePanel(top = 50, right = 30, widgets)
   
   tabPanel(title,
            tags$div(class = "main-map",
-                    outputFunction(id)
+                    outputFunction(id),
+                    tags$div(class = "map-controls",
+                             do.call(panel_widgets, on_map_widgets)
+                    )
            )
   )
 }

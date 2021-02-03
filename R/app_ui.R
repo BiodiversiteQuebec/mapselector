@@ -11,14 +11,18 @@ app_ui <- function(request) {
       dash_title(title = "Analyse de raréfaction"), 
       dash_sidebar(
         badge(),
-        sliderInput("obs",
-                    "Nombre d'observations:",
-                    min = 0,
-                    max = 1000,
-                    value = 500),
         textInput("name", "What's your name?")
       ), 
-      dash_tabs(tab_map(),
+      dash_tabs(
+        tab_map(
+          on_map_widgets = list(
+            sliderInput("obs",
+                        "Nombre d'observations:",
+                        min = 0,
+                        max = 1000,
+                        value = 500)),
+          
+        ),
                 tab_gen())
     )
   )
