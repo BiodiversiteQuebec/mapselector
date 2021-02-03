@@ -8,6 +8,7 @@ dataModal <- function(region, title_fmt, ...){
   )
 }
 
+#' @export
 ipso_zoo <- function(...){
   
   plotly::renderPlotly(
