@@ -3,11 +3,20 @@
 #' @param input,output,session Internal parameters for {shiny}. 
 #'     DO NOT REMOVE.
 #' @import shiny
+#' @importFrom magrittr %>%
 #' @noRd
 app_server <- function( input, output, session ){
   # Your application server logic 
-  # mod_map_select_server("map_select_ui_1")
-  output$map <- leaflet::renderLeaflet(make_leaflet_map())
+  output$map <- leaflet::renderLeaflet(make_leaflet_map() %>% 
+                                        leaflet:: addControl(
+                                           selectInput("Statut", 
+                                                       label = "Statut", 
+                                                       choices = list("Toutes les espèces" = 1, 
+                                                                      "Abondantes"  = 2, 
+                                                                      "Susceptibles" = 3,
+                                                                      "Menacées" = 4,
+                                                                      "Vulnérables" = 5
+                                                       ))))
   chosen_region <- reactive({input$map_shape_click$id})
   mod_modal_make_server("modal_make_ui_1", 
                         # this reactive value is passed inside the module

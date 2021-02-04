@@ -30,3 +30,14 @@ mod_map_select_server <- function(id){
     
 ## To be copied in the server
 # mod_map_select_server("map_select_ui_1")
+
+datasetApp <- function(filter = NULL) {
+  ui <- fluidPage(
+    mod_map_select_ui("testmap")
+  )
+  server <- function(input, output, session) {
+    mod_map_select_server("testmap")
+  }
+  shinyApp(ui, server)
+}
+datasetApp()
