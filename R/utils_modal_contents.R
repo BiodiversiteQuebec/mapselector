@@ -1,6 +1,6 @@
 
 #' @export
-dataModal <- function(region, title_fmt, ...){
+modal_tab_format <- function(region, title_fmt, ...){
   modaltitle <- sprintf(title_fmt, region)
   modalDialog(
     h3(modaltitle),

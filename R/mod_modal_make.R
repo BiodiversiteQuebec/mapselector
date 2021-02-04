@@ -15,8 +15,8 @@ mod_modal_make_server <- function(id,
     observe({
     if (!is.null( region())) {
       showModal(
-        dataModal(
-          # first argument to dataModal is the region selected on the map
+        modal_tab_format(
+          # first argument to modal_tab_format is the region selected on the map
           region(),
           # the second is a format string for the title of the modal, see ?sprintf
           title_fmt = title_format_pattern,
