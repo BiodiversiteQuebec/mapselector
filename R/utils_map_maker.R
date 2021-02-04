@@ -2,22 +2,23 @@
 
 #' @importFrom magrittr `%>%`
 #' @export
-make_leaflet_map <- function() {
-  CERQ <- mapselector::CERQ
+make_leaflet_map <- function(mapdata = mapselector::CERQ, label = TRUE, region_name = "NOM_PROV_N") {
   
-  # leaflet can make attractive colour palattes. 
-  # interp_pal <- leaflet::colorFactor(rcartocolor::carto_pal(12,"Prism"), domain = CERQ$NOM_PROV_N)
+  assertthat::assert_that(assertthat::has_name(mapdata, region_name))
   
-  ## as a demo, make me a map
+  # label with a column, otherwise NULL
   
-  leaflet::leaflet(CERQ,
+  if(label) labeltext <- mapdata[[region_name]] else labeltext <- NULL
+  
+  leaflet::leaflet(mapdata,
                    options = leaflet::leafletOptions(minZoom = 4)) %>%
     leaflet::addTiles() %>% # Affichage du fond de carte
     leaflet::addPolygons(
       color = "darkblue", # couleur des limites des polygones
       weight = 1,
       smoothFactor = 0.5,
-      layerId = ~ NOM_PROV_N,
+      layerId = mapdata[[region_name]],
+      label = labeltext,
       fillColor = "#2571BB", # couleur du remplissage des polygones
       fillOpacity = 0.4,
       highlightOptions = leaflet::highlightOptions(color = "white",
