@@ -1,5 +1,11 @@
-# function for making a leaflet map of the chosen region
-
+#' Plot a leaflet map
+#' 
+#' function for making a leaflet map of the chosen region
+#' 
+#' @param mapdata the data that supplies the things that go on your map. default is `mapselector::CERQ`
+#' @param label should a mouseover label appear? default is TRUE
+#' @param region_name quoted name of the column in your dataset that gives the mouseover text. Will also be returned when you click
+#' 
 #' @importFrom magrittr `%>%`
 #' @export
 make_leaflet_map <- function(mapdata = mapselector::CERQ, label = TRUE, region_name = "NOM_PROV_N") {
