@@ -14,16 +14,9 @@ app_ui <- function(request) {
         textInput("name", "What's your name?")
       ), 
       dash_tabs(
-        tab_map(
-          on_map_widgets = list(
-            sliderInput("obs",
-                        "Nombre d'observations:",
-                        min = 0,
-                        max = 1000,
-                        value = 500)),
-          
-        ),
-                tab_gen())
+        #maybe a little strange, but here we pass in the UI of a modal and the id that defines it.
+        tab_map(title = "Map", id = "map", outputFunction = mod_map_select_ui),
+        tab_gen())
     )
   )
 }

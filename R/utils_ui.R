@@ -26,14 +26,13 @@ tab_map <- function(title = "Map",
                     ){
   
   
-  panel_widgets <- function(widgets) absolutePanel(top = 50, right = 30, widgets)
+  # panel_widgets <- function(widgets) absolutePanel(top = 50, right = 30, widgets)
   
   tabPanel(title,
            tags$div(class = "main-map",
-                    outputFunction(id),
-                    tags$div(class = "map-controls",
-                             do.call(panel_widgets, on_map_widgets)
-                    )
+                    outputFunction(id)#,
+                    # tags$div(class = "map-controls",
+                    #          do.call(panel_widgets, on_map_widgets))
            )
   )
 }

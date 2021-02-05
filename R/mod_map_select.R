@@ -5,8 +5,8 @@
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
 #' @noRd 
-#'
 #' @importFrom shiny NS tagList 
+#' @export
 mod_map_select_ui <- function(id){
   ns <- NS(id)
   tagList(
@@ -31,10 +31,7 @@ mod_map_select_server <- function(id,
     
     # so you can get it with just `map_shape_click`
     ## gotta make it reactive to trace the connection
-    list(
-      map_click = reactive({input[[paste("map", what_to_click, "click", sep = "_")]]$id}),
-      menu_sel  = reactive({input$statut})
-    )
+    reactive({input[[paste("map", what_to_click, "click", sep = "_")]]$id})
     # 
   })
 }
@@ -60,14 +57,13 @@ trialApp <- function(filter = NULL) {
     mod_modal_interactive_server("norm")
     
     mod_modal_make_server("modal_make_ui_1",
-                          region = got_clicked$map_click, 
+                          region = got_clicked, 
                           title_format_pattern = "what's up %s",
                           tabPanel(title = "ou suis-je",
                                    renderText({
                                      paste("tu est sur", 
-                                           got_clicked$map_click(),
-                                           "il y a ben du",
-                                           got_clicked$menu_sel())})
+                                           got_clicked()
+                                     )})
                           ),
                           tabPanel(title = "a stastic",{
                             mod_modal_interactive_ui("norm")
