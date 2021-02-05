@@ -24,6 +24,8 @@ usethis::use_package( "sf", type = "Suggests")
 ## Create a module infrastructure in R/
 golem::add_module( name = "map_select" ) # Name of the module
 golem::add_module( name = "modal_make" ) # Name of the module
+golem::add_module(name = "modal_interactive" )
+
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*
