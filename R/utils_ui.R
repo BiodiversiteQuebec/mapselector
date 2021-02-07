@@ -67,14 +67,14 @@ dash_title <- function(title = "Analyse de raréfaction"){
 #' @export
 dash_tabs <- function(...){
   
-  tabpanel <- add_class_tabs(suffix = "maintab-", ...)
+  tabpanel <- add_class_tabs(prefix = "maintab-", ...)
 
   
   fillCol(id="main",tabpanel)
 }
 
-# function that takes in tabs as dots and returns a tabpanel, with each tab given a suffix and a number
-add_class_tabs <-  function(suffix = "maintab-", ...){
+# function that takes in tabs as dots and returns a tabpanel, with each tab given a prefix and a number
+add_class_tabs <-  function(prefix = "maintab-", ...){
   list_of_tabs <- list(...)
   tab_seq <- seq_len(length(list_of_tabs))
   

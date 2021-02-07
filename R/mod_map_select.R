@@ -14,14 +14,28 @@ mod_map_select_ui <- function(id){
   )
 }
     
-#' map_select Server Functions
+#' Make a leaflet map with a reactive output
+#'
+#' This module is meant to help us make leaflet maps and output a reactive
+#' value. This value can be used to trigger a modal and also it's contents.
+#'
+#' @param id this is the modal id string. It has to match the ui function. If
+#'   you make a second map, use a different one
+#' @param what_to_click either "shape" for a region map or "marker" for a site
+#'   map
+#' @param fun this is a function that makes a map; you might write this yourself
+#'   or you might use one of the built in ones for sites (plot_rcoleo_sites)
+#'   blank (make_leaflet_empty) or regions (make_leaflet_map)
+#' @param \dots{...} additional arguments to fun
 #'
 #' @importFrom magrittr %>%
-#' @noRd 
 #' @export
 mod_map_select_server <- function(id,
                                   what_to_click = "shape",
                                   fun = make_leaflet_map, ...){
+  
+  stopifnot(is.function(fun))
+  
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     # remember this name, "map" will be namespaced!! 

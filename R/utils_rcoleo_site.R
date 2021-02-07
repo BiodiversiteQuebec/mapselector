@@ -65,7 +65,6 @@ make_icon_adders <- function(site_info_sf,
                                     data = dat,
                                     group = grp,
                                     layerId = pt_id, 
-                                    popup = pt_id, 
                                     label = pt_id)
   }
   

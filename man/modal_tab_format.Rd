@@ -6,6 +6,11 @@
 \usage{
 modal_tab_format(region, title_fmt, ...)
 }
+\arguments{
+\item{region}{this is a character value, probably from a reactive value}
+
+\item{title_fmt}{is a format for the modal title}
+}
 \description{
 This function is a wrapper around modal tabs. It does two things. first, it
 sets the title for the whole modal. Its assumed that this is going to be
