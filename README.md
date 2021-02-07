@@ -19,7 +19,7 @@ If you have a UI approach that you think works really well, consider creating a 
 Install `mapselector` directly from github:
 
 ``` r
-remotes::install_github("ReseauBiodiversiteQuebec/mapselector")
+remotes::install_github("ReseauBiodiversiteQuebec/mapselector",ref="main")
 ```
 
 ## Workflow for creating a dashboard
