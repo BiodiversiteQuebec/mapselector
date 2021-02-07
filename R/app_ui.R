@@ -16,6 +16,7 @@ app_ui <- function(request) {
       dash_tabs(
         #maybe a little strange, but here we pass in the UI of a modal and the id that defines it.
         tab_map(title = "Map", id = "map", outputFunction = mod_map_select_ui),
+        tab_map(title = "Site Map", id = "sitemap", outputFunction = mod_map_select_ui),
         tab_gen())
     )
   )

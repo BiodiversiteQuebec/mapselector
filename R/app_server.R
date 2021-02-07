@@ -14,6 +14,11 @@ app_server <- function( input, output, session ){
                                        label = TRUE,
                                        region_name = "NOM_PROV_N")
   
+  
+  got_clicked_site <- mod_map_select_server("sitemap",
+                                            what_to_click = "marker", 
+                                            fun = plot_rcoleo_sites)
+  
   mod_modal_make_server("modal_make_ui_1", 
                         # this reactive value is passed inside the module
                         # note you but the reactive value here, not its value, 
@@ -37,4 +42,16 @@ app_server <- function( input, output, session ){
                                  renderText({paste("tu est sur", got_clicked())})
                         )
                         )
+  
+  mod_modal_make_server("modal_make_ui_1", 
+                        # this reactive value is passed inside the module
+                        # note you but the reactive value here, not its value, 
+                        # which you would get with chosen_region()
+                        region = got_clicked_site,
+                        # give the title that you want for the modal
+                        title_format_pattern = "Visualization for %s",
+                        tabPanel(title = "ou suis-je",
+                                 renderText({paste("tu est sur", got_clicked_site())})
+                        )
+  )
 }
