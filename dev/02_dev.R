@@ -17,6 +17,7 @@
 ## Add one line by package you want to add as dependency
 usethis::use_package( "leaflet" )
 usethis::use_dev_package("golem")
+usethis::use_dev_package("fontawesome", remote = "rstudio/fontawesome")
 usethis::use_package( "assertthat", type = "Suggests")
 usethis::use_package( "sf", type = "Suggests")
 
@@ -34,7 +35,7 @@ golem::add_utils(  "modal_contents")
 golem::add_utils( "ui" )
 golem::add_utils( "region" )
 golem::add_utils( "mapselector_dev" )
-
+golem::add_utils( "rcoleo_site" )
 
 ## External resources
 ## Creates .js and .css files at inst/app/www
@@ -46,6 +47,8 @@ golem::add_css_file( "style" )
 ## If you have data in your package
 usethis::use_data_raw( name = "CERQ", open = FALSE ) 
 
+usethis::use_data_raw( name = "font-awesome" ) 
+
 ## Tests ----
 ## Add one line by test you want to create
 usethis::use_test( "app" )
@@ -54,6 +57,7 @@ usethis::use_test( "app" )
 
 ## Vignette ----
 usethis::use_vignette("map_options")
+usethis::use_vignette("coleo_sitemap")
 devtools::build_vignettes()
 
 ## Code Coverage----
