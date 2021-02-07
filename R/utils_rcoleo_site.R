@@ -129,10 +129,10 @@ get_rcoleo_sites_sf <- function(...) {
 }
 
 #' @export
-plot_rcoleo_sites <- function(){
-  rcoleo_sites_sf <- get_rcoleo_sites_sf()
+plot_rcoleo_sites <- function(rcoleo_sites_sf = get_rcoleo_sites_sf(),
+                              site_id_col = "site_code"){
   
-  icon_adders <- make_icon_adders(rcoleo_sites_sf)
+  icon_adders <- make_icon_adders(rcoleo_sites_sf, site_id_col = site_id_col)
   
   plot_markers_controls(rcoleo_sites_sf, icon_adders)
 }
