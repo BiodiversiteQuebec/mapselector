@@ -8,7 +8,10 @@
 app_server <- function( input, output, session ){
   # Your application server logic 
   
-  got_clicked <- mod_map_select_server("map",what_to_click = "shape", fun = make_leaflet_map,
+  # make a map of your own
+  # needs and id
+  got_clicked <- mod_map_select_server("map",what_to_click = "shape",
+                                       fun = make_leaflet_map,
                                        # these are arguments to make_leaflet_map
                                        mapdata = mapselector::CERQ,
                                        label = TRUE,
@@ -46,7 +49,9 @@ app_server <- function( input, output, session ){
                         )
                         )
   
-  mod_observation_display_server("siteobs", site = downloaded_sites, region = got_clicked_site)
+  mod_observation_display_server("siteobs", 
+                                 site = downloaded_sites, 
+                                 region = got_clicked_site)
   
   mod_modal_make_server("modal_make_ui_1", 
                         # this reactive value is passed inside the module

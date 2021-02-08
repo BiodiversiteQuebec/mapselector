@@ -28,7 +28,12 @@ mod_observation_display_server <- function(id, site, region){
     output$obs_tbl = DT::renderDT({
       subsite <- subset(site, site_code == region())
       resp <- rcoleo::get_all_observations_from_a_site(subsite)
-      resp$obs_resp[[1]]
+      
+      to_show <- with(resp$obs_resp[[1]],
+                      data.frame(date = created_at,
+                                 espece = obs_species.taxa_name,
+                                 ))
+      
     },
       options = list(lengthChange = FALSE, fillContainer = FALSE)
     )
