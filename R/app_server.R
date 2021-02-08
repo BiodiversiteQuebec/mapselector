@@ -3,17 +3,30 @@
 #' @param input,output,session Internal parameters for {shiny}. 
 #'     DO NOT REMOVE.
 #' @import shiny
+#' @importFrom magrittr %>%
 #' @noRd
 app_server <- function( input, output, session ){
   # Your application server logic 
-  # mod_map_select_server("map_select_ui_1")
-  output$map <- leaflet::renderLeaflet(make_leaflet_map())
-  chosen_region <- reactive({input$map_shape_click$id})
+  
+  got_clicked <- mod_map_select_server("map",what_to_click = "shape", fun = make_leaflet_map,
+                                       # these are arguments to make_leaflet_map
+                                       mapdata = mapselector::CERQ,
+                                       label = TRUE,
+                                       region_name = "NOM_PROV_N")
+  
+  downloaded_sites <- rcoleo::download_sites_sf()
+  
+  
+  got_clicked_site <- mod_map_select_server("sitemap",
+                                            what_to_click = "marker", 
+                                            fun = plot_rcoleo_sites,
+                                            rcoleo_sites_sf = downloaded_sites)
+  
   mod_modal_make_server("modal_make_ui_1", 
                         # this reactive value is passed inside the module
                         # note you but the reactive value here, not its value, 
                         # which you would get with chosen_region()
-                        region = chosen_region,
+                        region = got_clicked,
                         # give the title that you want for the modal
                         title_format_pattern = "Visualization for %s",
                         # here place all the tabs you want in your final modal! 
@@ -21,7 +34,7 @@ app_server <- function( input, output, session ){
                         tabPanel(title = "Visualization",
                                  # see mapselector::ipso_zoo for an example
                                  ipso_zoo(color = I("red"))
-                                 ),
+                        ),
                         ## could also be html elements
                         tabPanel(title = "C'est un tab",
                                  div("Bien sur c'est un tab")),
@@ -29,7 +42,24 @@ app_server <- function( input, output, session ){
                         ## NOTE that if you use a render function here, in tabpanel, pass in the value (use parentheses) 
                         ### but if you write a function with a render function _inside_ pass in the reactive itself (no parentheses)
                         tabPanel(title = "ou suis-je",
-                                 renderText({paste("tu est sur", chosen_region())})
+                                 renderText({paste("tu est sur", got_clicked())})
                         )
                         )
+  
+  mod_observation_display_server("siteobs", site = downloaded_sites, region = got_clicked_site)
+  
+  mod_modal_make_server("modal_make_ui_1", 
+                        # this reactive value is passed inside the module
+                        # note you but the reactive value here, not its value, 
+                        # which you would get with chosen_region()
+                        region = got_clicked_site,
+                        # give the title that you want for the modal
+                        title_format_pattern = "Visualization for %s",
+                        tabPanel(title = "ou suis-je",
+                                 renderText({paste("tu est sur", got_clicked_site())})
+                        ),
+                        tabPanel(title = "Observations",
+                                 mod_observation_display_ui("siteobs")
+                                 )
+  )
 }

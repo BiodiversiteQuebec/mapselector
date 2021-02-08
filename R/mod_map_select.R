@@ -5,8 +5,8 @@
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
 #' @noRd 
-#'
 #' @importFrom shiny NS tagList 
+#' @export
 mod_map_select_ui <- function(id){
   ns <- NS(id)
   tagList(
@@ -14,14 +14,39 @@ mod_map_select_ui <- function(id){
   )
 }
     
-#' map_select Server Functions
+#' Make a leaflet map with a reactive output
 #'
-#' @noRd 
+#' This module is meant to help us make leaflet maps and output a reactive
+#' value. This value can be used to trigger a modal and also it's contents.
+#'
+#' @param id this is the modal id string. It has to match the ui function. If
+#'   you make a second map, use a different one
+#' @param what_to_click either "shape" for a region map or "marker" for a site
+#'   map
+#' @param fun this is a function that makes a map; you might write this yourself
+#'   or you might use one of the built in ones for sites (plot_rcoleo_sites)
+#'   blank (make_leaflet_empty) or regions (make_leaflet_map)
+#' @param \dots{...} additional arguments to fun
+#'
+#' @importFrom magrittr %>%
 #' @export
-mod_map_select_server <- function(id){
+mod_map_select_server <- function(id,
+                                  what_to_click = "shape",
+                                  fun = make_leaflet_map, ...){
+  
+  stopifnot(is.function(fun))
+  
   moduleServer( id, function(input, output, session){
     ns <- session$ns
-    output$map <- leaflet::renderLeaflet(make_leaflet_map())
+    # remember this name, "map" will be namespaced!! 
+    output$map <- leaflet::renderLeaflet(
+      fun(...)
+    )
+    
+    # so you can get it with just `map_shape_click`
+    ## gotta make it reactive to trace the connection
+    reactive({input[[paste("map", what_to_click, "click", sep = "_")]]$id})
+    # 
   })
 }
     
@@ -30,3 +55,41 @@ mod_map_select_server <- function(id){
     
 ## To be copied in the server
 # mod_map_select_server("map_select_ui_1")
+
+trialApp <- function(filter = NULL) {
+  ui <- fluidPage(
+    mod_map_select_ui("testmap"),
+    textOutput("u_clicked")
+  )
+  server <- function(input, output, session) {
+    got_clicked <- mod_map_select_server("testmap",
+                                         mapdata = mapselector::CERQ,
+                                         label = TRUE,
+                                         region_name = "NOM_PROV_N")
+    
+    
+    mod_modal_interactive_server("norm")
+    
+    mod_modal_make_server("modal_make_ui_1",
+                          region = got_clicked, 
+                          title_format_pattern = "what's up %s",
+                          tabPanel(title = "ou suis-je",
+                                   renderText({
+                                     paste("tu est sur", 
+                                           got_clicked()
+                                     )})
+                          ),
+                          tabPanel(title = "a stastic",{
+                            mod_modal_interactive_ui("norm")
+                          }))
+  }
+  shinyApp(ui, server)
+}
+trialApp()
+
+
+# should a module affect the `output` directly? or should it just return reactive values??
+
+# select by name the region from the map, in the input list??
+
+# TODO add the controls to the map and ALSO extract those instructions from the map module

@@ -4,3 +4,4 @@
 .Rproj.user
 data-raw/CERQ*
 inst/doc
+.httr-oauth

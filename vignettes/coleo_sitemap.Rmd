@@ -1,0 +1,317 @@
+---
+title: "coleo_sitemap"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{coleo_sitemap}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+```{r setup, eval=FALSE}
+library(mapselector)
+
+library(tidyverse)
+rcoleo_sites <- rcoleo::get_sites()
+
+rcoleo_sites[[1]]$body[[1]] %>% glimpse
+ # from Claire's code
+
+leaflet() %>%
+  addTiles() %>% # Affichage du fond de carte
+  addCircleMarkers(lng = obs_an()$long_site, # Positionnement des sites avec les coordonnées long/lat
+                   lat = obs_an()$lat_site,
+                   radius = 8, # taille du cercle
+                   popup = obs_an()$popup_info, # Ajout de fenêtres pop-up
+                   color = obs_an()$col,
+                   layerId = obs_an()$site_code)
+
+# lon and lat come from the geom coordinates
+
+# sf point object??
+
+ppopup_info = paste0("<b> Region</b> ",
+                   Region,
+                   "<br/>","<b> id_cellule</b> ",
+                   cell_id,
+                   "<br/>",
+                   "<b> code_cellule</b> ",
+                   cell.cell_code,
+                   "<br/>",
+                   "<b> nom_cellule</b> ",
+                   cell.name,
+                   "<br/>",
+                   "<b> code_site</b> ",
+                   site_code,
+                   "<br/>",
+                   "<b> type_echantillonnage</b> ",
+                   type,
+                   "<br/>",
+                   "<b> annee_creation_site</b> ",
+                   open_year)
+
+library(sf)
+# st_as_sf(rcoleo_sites[[1]]$body[[1]], coords = "geom.coordinates", dim = "XY")
+
+rcoleo_sites[[1]]$body[[1]]$geom.coordinates %>% lapply(st_point)
+
+
+site_info <- rcoleo_sites[[1]]$body[[1]]
+
+site_info$lng <- map_dbl(site_info$geom.coordinates, 1)
+
+site_info$lat <- map_dbl(site_info$geom.coordinates, 2)
+
+library(leaflet)
+
+leaflet(site_info) %>%
+  addTiles() %>% 
+  addCircleMarkers()
+
+
+rcoleo_sites <- rcoleo::sf_sites()
+``` 
+
+Doesn't work. here is a better way: 
+
+
+```{r eval=FALSE}
+library(tidyverse)
+library(sf)
+library(leaflet)
+# get data
+rcoleo_sites <- rcoleo::get_sites()
+
+# get the real info out
+site_info_df <- rcoleo_sites[[1]]$body[[1]]
+
+# convert to sf
+site_info_df$geom.coordinates <- lapply(site_info_df$geom.coordinates, sf::st_point)
+
+site_info_sf <-  sf::st_as_sf(site_info_df)
+
+site_info_sf %>% 
+  leaflet %>% 
+  addTiles() %>% 
+  addCircleMarkers()
+
+```
+
+
+TODO: it might be interesting to apply the same procedure to cells (assuming that this even works! )
+See other example from my attempt with ggiraph
+
+### adding awesome markers
+
+from Guillaume, via Steve in original app: 
+
+```r
+    "lac": markerAwsomeMarker({
+        icon: "fish",
+        markerColor: "darkblue",
+        layer: 'Aquatique',
+    }),
+    "rivière": markerAwsomeMarker({
+        icon: "fish",
+        markerColor: "blue",
+        layer: 'Aquatique',
+    }),
+    "toundrique": markerAwsomeMarker({
+        icon: "leaf",
+        markerColor: "orange",
+        layer: 'Toundra',
+    }),
+    "marais": markerAwsomeMarker({
+        icon: "frog",
+        markerColor: "darkgreen",
+        layer: 'Marais',
+    }),
+    "marais côtier": markerAwsomeMarker({
+        icon: "water",
+        markerColor: "cadetblue",
+        layer: 'Marais côtier',
+    }),
+    "forestier": markerAwsomeMarker({
+        icon: "tree",
+        markerColor: "green",
+        layer: 'Forestier',
+    }),
+    "tourbière": markerAwsomeMarker({
+        icon: "seedling",
+        markerColor: "darkred",
+        layer: 'Tourbière',
+    }),
+
+```
+
+
+and based on the [leaflet docs](https://rstudio.github.io/leaflet/markers.html)
+
+Seems like the first step is to create an `awesomeIconList`
+
+```{r eval=FALSE}
+# is this too fancy
+
+library(fontawesome)
+
+fa_col <- function(txt) fontawesome::fa(txt, fill = "white")
+
+icon_options <- list(
+  lac             = list(text = fa_col("fish"),     markerColor = "darkblue"),
+  rivière         = list(text = fa_col("fish"),     markerColor = "blue"),
+  toundrique      = list(text = fa_col("leaf"),     markerColor = "orange"),
+  marais          = list(text = fa_col("frog"),     markerColor = "darkgreen"),
+  "marais côtier" = list(text = fa_col("water"),    markerColor = "cadetblue"),
+  forestier       = list(text = fa_col("tree"),     markerColor = "green"),
+  tourbière       = list(text = fa_col("seedling"), markerColor = "darkred")
+)
+
+awesome_icon_list <- lapply(icon_options, do.call, what = makeAwesomeIcon)
+
+site_icons <- do.call(awesomeIconList, awesome_icon_list)
+
+```
+
+# plot using the dataset
+
+```{r eval=FALSE}
+site_info_sf %>% 
+  leaflet %>% 
+  addTiles() %>% 
+  addAwesomeMarkers(icon = leaflet::makeAwesomeIcon(
+    text = mapselector::fa_tbl[mapselector::fa_tbl$name == "fish", "svg"],
+    iconColor = "black",
+    markerColor = "red"
+))
+```
+
+```{r eval=FALSE}
+
+site_info_sf %>%  
+  leaflet %>% 
+  addTiles() %>% 
+  addAwesomeMarkers(icon = ~site_icons[type])
+```
+
+You can filter out a habitat type
+
+```{r}
+site_info_sf %>%  
+  filter(type != "tourbière") %>% 
+  leaflet %>% 
+  addTiles() %>% 
+  addAwesomeMarkers(icon = ~site_icons[type])
+```
+
+
+based on the issues in this thread [here](https://github.com/rstudio/leaflet/issues/691)
+
+# group according to site?? is that possible? 
+
+
+
+
+## set groups and use layer controls
+
+```{r}
+
+# make awesomeicon functions
+site_icons_adders <- lapply(site_icons, function(ic) function(...) addAwesomeMarkers(..., icon = ic))
+
+blank_map <- site_info_sf %>%  
+  leaflet %>% 
+  addTiles()
+
+runfun <- function(x, fun){
+  fun(x)
+}
+
+runfun(c(2,3,6), mean)
+
+
+Reduce(f = runfun, site_icons_adders, init = blank_map)
+
+```
+
+
+Ok that gives you all things mapped to the last icon. You need to split up the data first
+
+```{r}
+# filter the data
+
+# split the data
+
+site_info_sf_split <- split(site_info_sf, site_info_sf[["type"]])
+
+# filter the icons -- only what is in data
+
+filter_icons <- site_icons[names(site_info_sf_split)]
+
+# lengths should be same
+stopifnot(length(site_info_sf_split) == length(filter_icons))
+
+add_partial_awesome <- function(ic, dat, grp, pt_id) function(map) addAwesomeMarkers(map = map, icon = ic, data = dat, group = grp, layerId = pt_id, popup = pt_id, label = pt_id)
+
+markers <- mapply(add_partial_awesome,
+                  filter_icons, 
+                  site_info_sf_split, 
+                  names(site_info_sf_split),
+                  lapply(site_info_sf_split, `[[`, "site_code"))
+
+
+p <- Reduce(f = runfun, markers, init = blank_map)
+
+addLayersControl(p ,
+    overlayGroups = names(site_info_sf_split),
+    options = layersControlOptions(collapsed = FALSE)
+  )
+
+```
+
+
+
+## getting obs off of site
+
+```{r}
+
+rc <- mapselector::get_rcoleo_sites_sf()
+
+library(dplyr)
+camps <- rc$campaigns[[8]][c("type", "opened_at", "closed_at", "site_id")]
+
+
+rcoleo:::endpoints()$campaigns
+
+
+camp_list <- purrr::transpose(camps) %>% 
+  purrr::map(rcoleo::get_gen, endpoint = rcoleo:::endpoints()$campaigns)
+
+
+camp_df <- camp_list %>% purrr::map_dfr("body")
+
+camp_df
+
+camp_df$efforts
+
+
+
+# obs
+
+as.list(camp_df$id)
+forty_two <- rcoleo::get_gen(endpoint = rcoleo:::endpoints()$observations, query = list(campaign_id = 42))
+
+df42 <- forty_two$body %>% do.call(rbind, .)
+
+View(df42)
+
+
+# note that it goes totally wild and gives back EVERYTHING if you accidenitally name the quiery campaign and not campaign_id
+```
+
