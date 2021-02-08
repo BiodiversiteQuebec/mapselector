@@ -275,3 +275,43 @@ addLayersControl(p ,
 
 ```
 
+
+
+## getting obs off of site
+
+```{r}
+
+rc <- mapselector::get_rcoleo_sites_sf()
+
+library(dplyr)
+camps <- rc$campaigns[[8]][c("type", "opened_at", "closed_at", "site_id")]
+
+
+rcoleo:::endpoints()$campaigns
+
+
+camp_list <- purrr::transpose(camps) %>% 
+  purrr::map(rcoleo::get_gen, endpoint = rcoleo:::endpoints()$campaigns)
+
+
+camp_df <- camp_list %>% purrr::map_dfr("body")
+
+camp_df
+
+camp_df$efforts
+
+
+
+# obs
+
+as.list(camp_df$id)
+forty_two <- rcoleo::get_gen(endpoint = rcoleo:::endpoints()$observations, query = list(campaign_id = 42))
+
+df42 <- forty_two$body %>% do.call(rbind, .)
+
+View(df42)
+
+
+# note that it goes totally wild and gives back EVERYTHING if you accidenitally name the quiery campaign and not campaign_id
+```
+

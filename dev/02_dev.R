@@ -26,6 +26,7 @@ usethis::use_package( "sf", type = "Suggests")
 golem::add_module( name = "map_select" ) # Name of the module
 golem::add_module( name = "modal_make" ) # Name of the module
 golem::add_module(name = "modal_interactive" )
+golem::add_module( name = "observation_display" )
 
 
 ## Add helper functions ----

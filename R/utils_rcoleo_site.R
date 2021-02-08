@@ -107,28 +107,8 @@ plot_markers_controls <- function(site_info_sf, markers){
 }
 
 
-#' Get rcoleo sites as sf dataframe
-#' 
-#' download all the sites and get their types as well
-#' 
-#' @param datasets
-#' 
 #' @export
-get_rcoleo_sites_sf <- function(...) {
-  rcoleo_sites <- rcoleo::get_sites(...)
-  
-  # get the real info out
-  site_info_df <- rcoleo_sites[[1]]$body[[1]]
-  
-  # convert to sf
-  site_info_df$geom.coordinates <- lapply(site_info_df$geom.coordinates, sf::st_point)
-  
-  site_info_sf <-  sf::st_as_sf(site_info_df)
-  return(site_info_sf)
-}
-
-#' @export
-plot_rcoleo_sites <- function(rcoleo_sites_sf = get_rcoleo_sites_sf(),
+plot_rcoleo_sites <- function(rcoleo_sites_sf = rcoleo::download_sites_sf(),
                               site_id_col = "site_code"){
   
   icon_adders <- make_icon_adders(rcoleo_sites_sf, site_id_col = site_id_col)
