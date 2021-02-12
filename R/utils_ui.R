@@ -74,7 +74,7 @@ dash_tabs <- function(...){
 }
 
 # function that takes in tabs as dots and returns a tabpanel, with each tab given a prefix and a number
-add_class_tabs <-  function(prefix = "maintab-", ...){
+add_class_tabs <-  function(prefix = "maintab-", ..., type = "tabs"){
   list_of_tabs <- list(...)
   tab_seq <- seq_len(length(list_of_tabs))
   
@@ -86,7 +86,7 @@ add_class_tabs <-  function(prefix = "maintab-", ...){
       class = tabclasses[i])
   }
   
-  tabfun <- function(...) tabsetPanel(id = "tabs", type = "tabs", ...)
+  tabfun <- function(...) tabsetPanel(id = "tabs", ..., type = type)
   
   tabpanel <- do.call(tabfun, list_of_tabs)
 

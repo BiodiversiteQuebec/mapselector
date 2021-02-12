@@ -28,9 +28,9 @@ mod_modal_make_server <- function(id,
 }
 
 #' @export
-mod_modal_observeEvent_ui <- function(id){
+mod_modal_observeEvent_ui <- function(id, button_text, ...){
   ns <- NS(id)
-  actionButton(ns("show_index"), "Afficher l'indice")
+  actionButton(ns("open_modal"), button_text, ...)
 }
 
 #' modal_make Server Functions
@@ -40,21 +40,23 @@ mod_modal_observeEvent_ui <- function(id){
 #' @export
 mod_modal_observeEvent_server <- function(id, 
                                   title_format_pattern,
-                                  title_var = reactive("All Animals"),
-                                  ...){
+                                  title_var = reactive("the title"),
+                                  ...,
+                                  type = "tabs"){
   if (missing(title_format_pattern) | !is.character(title_format_pattern)) stop("Please provide a title for the modal")
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
     observeEvent(
-      input$show_index, {
+      # this refers to the input element named ns("open_modal") from above
+      input$open_modal, {
         showModal(
           modal_tab_format(
             # first argument to modal_tab_format is the region selected on the map
             title_var(),
             # the second is a format string for the title of the modal, see ?sprintf
-            title_fmt = title_format_pattern,
-            ...
+            title_fmt = title_format_pattern, 
+            ..., type = type
           ))
       }
     )
@@ -74,7 +76,7 @@ mod_modal_observeEvent_server <- function(id,
 
 testapp_observe2 <- function(){
   ui <- fluidPage(
-    mod_modal_observeEvent_ui("ff")
+    mod_modal_observeEvent_ui("ff", button_text = "button txt")
   )
   
   server <-  function(input, output, session) {
@@ -91,3 +93,38 @@ testapp_observe2 <- function(){
 
 
 testapp_observe2()
+
+
+# another way to work with mod_modal_observeEvent_ui, but this time opening a tutorial!
+
+#' @noRd 
+#' @export
+mod_modal_observeEvent_tutorial_server <- function(id, 
+                                                   title_text,
+                                                   md_file,
+                                                   second_button = NULL){
+  moduleServer( id, function(input, output, session){
+    ns <- session$ns
+    
+    observeEvent(
+      # this refers to the input element named ns("open_modal") from above
+      input$open_modal, {
+        showModal(
+          # the second is a format string for the title of the modal, see ?sprintf
+          modalDialog(title = title_text,
+                      includeMarkdown(md_file),
+                      footer = tagList(
+                        span(
+                          modalButton("Passer l'introduction"),
+                          style = "position:relative; float:left;"
+                        ),
+                        second_button
+                      )
+          )
+        )
+      }
+    )
+  }
+  )
+}
+

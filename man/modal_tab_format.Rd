@@ -4,7 +4,7 @@
 \alias{modal_tab_format}
 \title{Format modal tabs}
 \usage{
-modal_tab_format(region, title_fmt, ...)
+modal_tab_format(region, title_fmt, ..., type = "tabs")
 }
 \arguments{
 \item{region}{this is a character value, probably from a reactive value}

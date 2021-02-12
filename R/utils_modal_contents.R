@@ -10,14 +10,14 @@
 #' @param title_fmt is a format for the modal title
 #'
 #' @export
-modal_tab_format <- function(region, title_fmt, ...){
+modal_tab_format <- function(region, title_fmt, ..., type = "tabs"){
   
   stopifnot(is.character(region))
   
   modaltitle <- sprintf(title_fmt, region)
   modalDialog(
     h3(modaltitle),
-    add_class_tabs(prefix = "modaltab-", ...)
+    add_class_tabs(prefix = "modaltab-", ..., type = type)
   )
 }
 
