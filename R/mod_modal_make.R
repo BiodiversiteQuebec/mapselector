@@ -97,14 +97,30 @@ testapp_observe2()
 
 # another way to work with mod_modal_observeEvent_ui, but this time opening a tutorial!
 
+
+#' Open a tutorial modal
+#' 
+#' requires a text to open to be placed in inst/app/www
+#' 
+#' @param id 
+#' @param title_text Title for the modal that pops up
+#' @param md_file file name, not path
+#' @param button_text what the button says
+#' @param second_button do you want this modal to open a second? default NULL
+#'
 #' @noRd 
 #' @export
 mod_modal_observeEvent_tutorial_server <- function(id, 
                                                    title_text,
                                                    md_file,
+                                                   button_text = "Fermer",
                                                    second_button = NULL){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
+    
+    f <- here::here("inst", "app", "www", md_file)
+    stopifnot(file.exists(f))
+    
     
     observeEvent(
       # this refers to the input element named ns("open_modal") from above
@@ -112,10 +128,10 @@ mod_modal_observeEvent_tutorial_server <- function(id,
         showModal(
           # the second is a format string for the title of the modal, see ?sprintf
           modalDialog(title = title_text,
-                      includeMarkdown(md_file),
+                      includeMarkdown(f),
                       footer = tagList(
                         span(
-                          modalButton("Passer l'introduction"),
+                          modalButton(button_text),
                           style = "position:relative; float:left;"
                         ),
                         second_button

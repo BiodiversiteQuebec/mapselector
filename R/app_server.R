@@ -11,11 +11,7 @@ app_server <- function( input, output, session ){
   # help functions and modals
   mod_modal_observeEvent_tutorial_server("info1",
                                          title_text = "title for help",
-                                         md_file = here::here(
-                                           "inst", 
-                                           "app",
-                                           "www",
-                                           "demo_help.md" ))
+                                         md_file = "demo_help.md")
                                          
   # make a map of your own
   # needs and id
