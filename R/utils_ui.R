@@ -152,3 +152,25 @@ pal <- c( "amphibiens" = "#56B4E9",
          "poissons"   =    "#0072B2", 
          "reptiles"   = "#009E73",
          "#999999")
+
+
+#' Generate a div for the sliding explainer on the side
+#' 
+#' Write and store the text you want in `inst/app/www/` . 
+#' It has to be in Markdown format
+#' 
+#' @param filename the filename of the file, but not the path. 
+#' 
+#' @export
+marcel <- function(filename){
+  f <- here::here("inst", "app", "www", filename)
+  stopifnot(file.exists(f))
+  
+  tags$div(
+    class = 'tuto-wrap',
+    tags$div(
+      class = 'tuto-content',
+      includeMarkdown(f)
+    )
+  )
+}

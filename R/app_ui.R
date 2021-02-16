@@ -6,12 +6,14 @@
 #' @noRd
 app_ui <- function(request) {
   tagList(
+    marcel(filename = "marcel.md"),
     golem_add_external_resources(),
     tableau_de_bord(
       dash_title(title = "Analyse de raréfaction"), 
       dash_sidebar(
         badge(),
-        textInput("name", "What's your name?")
+        textInput("name", "What's your name?"),
+        mod_modal_helpbutton_ui("info1")
       ), 
       dash_tabs(
         #maybe a little strange, but here we pass in the UI of a modal and the id that defines it.

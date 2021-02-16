@@ -128,3 +128,19 @@ mod_modal_observeEvent_tutorial_server <- function(id,
   )
 }
 
+
+mod_modal_helpbutton_ui <- function(id, button_text, ...){
+  ns <- NS(id)
+  tags$sup(
+    shinyWidgets::circleButton(inputId = ns("open_modal"),
+                               label = "",
+                               icon = icon("info"),
+                               size = "xs",
+                               status = "primary")
+    )
+  
+  # wrap in div with class and text??? div(style = "font-size:25px; text-align:center",
+  # "Diversité des indicateurs",...)
+}
+
+
