@@ -13,7 +13,7 @@ app_ui <- function(request) {
       dash_sidebar(
         badge(),
         textInput("name", "What's your name?"),
-        mod_modal_helpbutton_ui("info1")
+        mod_modal_helpbutton_ui("info1", "Jargon")
       ), 
       dash_tabs(
         #maybe a little strange, but here we pass in the UI of a modal and the id that defines it.

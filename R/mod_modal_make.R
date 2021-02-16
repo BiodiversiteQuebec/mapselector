@@ -128,16 +128,31 @@ mod_modal_observeEvent_tutorial_server <- function(id,
   )
 }
 
-
-mod_modal_helpbutton_ui <- function(id, button_text, ...){
+#
+#' make a modal help button
+#' 
+#' this function takes some text and makes a little help button appear next to it.
+#'
+#' @param id id for the module. match it to the module that makes the modal
+#' @param text_before_button the text that should be followed by the "i" for information.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+mod_modal_helpbutton_ui <- function(id, text_before_button){
   ns <- NS(id)
-  tags$sup(
-    shinyWidgets::circleButton(inputId = ns("open_modal"),
-                               label = "",
-                               icon = icon("info"),
-                               size = "xs",
-                               status = "primary")
+  
+  tags$span(
+    text_before_button,
+    tags$sup(
+      shinyWidgets::circleButton(inputId = ns("open_modal"),
+                                 label = "",
+                                 icon = icon("info"),
+                                 size = "xs",
+                                 status = "primary")
     )
+  )
   
   # wrap in div with class and text??? div(style = "font-size:25px; text-align:center",
   # "Diversité des indicateurs",...)
