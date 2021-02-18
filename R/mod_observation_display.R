@@ -25,10 +25,13 @@ mod_observation_display_server <- function(id, site, region){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
  
+    
+    # choose just that site
+    subsite <- reactive(subset(site, site_code == region()))
+    
+    
     output$obs_tbl = DT::renderDT({
       
-      # choose just that site
-      subsite <- subset(site, site_code == region())
       
       # download from coleo database
       resp <- rcoleo::get_all_observations_from_a_site(subsite)

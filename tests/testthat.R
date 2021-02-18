@@ -1,4 +1,10 @@
 library(testthat)
-library(mapselector)
+# library(mapselector)
 
-test_check("mapselector")
+test_dir(
+  "./tests/testthat",
+  env = shiny::loadSupport(),
+  reporter = c("progress", "fail")
+)
+
+# test_check("mapselector")
