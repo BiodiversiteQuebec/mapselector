@@ -20,7 +20,7 @@ mod_observation_display_ui <- function(id){
 #'
 #' @noRd 
 mod_observation_display_server <- function(id, site, region){
-  # stopifnot(shiny::is.reactive(region))
+  assertthat::assert_that(shiny::is.reactive(region))
   
   moduleServer( id, function(input, output, session){
     ns <- session$ns
@@ -35,7 +35,7 @@ mod_observation_display_server <- function(id, site, region){
       
       to_show <- with(resp$obs_resp[[1]],
                       data.frame(date = created_at,
-                                 espece = obs_species.taxa_name,
+                                 espece = obs_species.taxa_name
                                  ))
       
     },
@@ -50,6 +50,7 @@ mod_observation_display_server <- function(id, site, region){
 ## To be copied in the server
 # mod_observation_display_server("observation_display_ui_1")
 
+# testing function
 testapp_observation_display <- function(){
   ui <- fluidPage(
     mod_observation_display_ui("observation_display_ui_1")

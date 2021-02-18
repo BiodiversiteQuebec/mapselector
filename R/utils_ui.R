@@ -17,6 +17,11 @@ widgets <- function(...){
 #' places them on top. 
 #' 
 #' 
+#' @param title title for the tab
+#' @param id id of the output to plot
+#' @param outputFunction the Output function that draws the plot,. usually `leaflet::leafletOutput`
+#' @param on_map_widgets doesn't actually work because idk if we're doing that anymore?
+#'
 #' @export
 tab_map <- function(title = "Map",
                     id = "map",

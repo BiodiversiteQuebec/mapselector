@@ -155,7 +155,7 @@ mod_modal_observeEvent_tutorial_server <- function(id,
 #' @return
 #' @export
 #'
-#' @examples
+# @examples
 mod_modal_helpbutton_ui <- function(id, text_before_button){
   ns <- NS(id)
   
@@ -174,4 +174,21 @@ mod_modal_helpbutton_ui <- function(id, text_before_button){
   # "Diversité des indicateurs",...)
 }
 
+
+
+# test function
+testapp_observe_tuto <- function(){
+  ui <- fluidPage(
+    mod_modal_observeEvent_ui("ff", "button")
+  )
+  
+  server <-  function(input, output, session) {
+    mod_modal_observeEvent_tutorial_server("ff",
+                                           title_text = "its a modal",
+                                           button_text = "Fermer",
+                                           second_button = NULL,
+                                           md_file = "demo_help.md")
+  }
+  shinyApp(ui, server)
+}
 

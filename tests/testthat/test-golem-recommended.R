@@ -19,9 +19,12 @@ test_that("app server", {
 })
 
 # Configure this test to fit your need
-test_that(
-  "app launches",{
-    skip_if_not(interactive())
-    golem::expect_running(sleep = 5)
-  }
-)
+# test_that(
+#   "app launches",{
+#     skip_if_not(interactive())
+#     golem::expect_running(sleep = 5)
+#   }
+# )
+# not sure I get what this is for, so commenting it out. 
+
+

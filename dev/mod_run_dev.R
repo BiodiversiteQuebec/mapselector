@@ -11,7 +11,7 @@ library(shiny)
 
 options(shiny.reactlog=TRUE)
 
-testapp_observe2 <- function(){
+testapp_observe_vis <- function(){
   ui <- fluidPage(
     mod_modal_observeEvent_ui("ff", "button")
   )
@@ -29,4 +29,4 @@ testapp_observe2 <- function(){
 }
 
 
-testapp_observe2()
+testapp_observe_vis()
