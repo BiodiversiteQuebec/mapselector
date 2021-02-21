@@ -108,7 +108,7 @@ plot_markers_controls <- function(site_info_sf, markers){
 
 
 #' @export
-plot_rcoleo_sites <- function(rcoleo_sites_sf = rcoleo::download_sites_sf(),
+plot_rcoleo_sites <- function(rcoleo_sites_sf = rcoleo::download_sites_sf(token = Sys.getenv("RCOLEO_TOKEN")),
                               site_id_col = "site_code"){
   
   icon_adders <- make_icon_adders(rcoleo_sites_sf, site_id_col = site_id_col)

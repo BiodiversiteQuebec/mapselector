@@ -11,5 +11,11 @@ test_that("observation_display works as expected",{
              ),
              {
                testthat::expect_s3_class(subsite(), "data.frame")
+               
+               testthat::expect_s3_class(resp(), "data.frame")
+               
+               testthat::expect_that(to_show(), has_names(c("date", "espece")))
+               
+               testthat::expect_s3_class(to_show(), "data.frame")
              })
 })
