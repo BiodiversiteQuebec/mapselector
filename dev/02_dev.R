@@ -20,7 +20,9 @@ usethis::use_dev_package("golem")
 usethis::use_dev_package("fontawesome", remote = "rstudio/fontawesome")
 usethis::use_package( "assertthat", type = "Suggests")
 usethis::use_package( "sf", type = "Suggests")
+usethis::use_package("plotly")
 
+## Add modules ----
 ## Add modules ----
 ## Create a module infrastructure in R/
 golem::add_module( name = "map_select" ) # Name of the module
@@ -59,6 +61,7 @@ usethis::use_test( "app" )
 ## Vignette ----
 usethis::use_vignette("map_options")
 usethis::use_vignette("coleo_sitemap")
+usethis::use_vignette("ouranous_vis")
 devtools::build_vignettes()
 
 ## Code Coverage----

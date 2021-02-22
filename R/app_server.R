@@ -30,6 +30,14 @@ app_server <- function( input, output, session ){
                                             fun = plot_rcoleo_sites,
                                             rcoleo_sites_sf = downloaded_sites)
   
+  
+  got_clicked_our <- mod_map_select_server("ouranous_map",what_to_click = "shape",
+                        fun = make_leaflet_map,
+                        # these are arguments to make_leaflet_map
+                        mapdata = mapselector::regions_simplified_Ouranos,
+                        label = TRUE,
+                        region_name = "Region")
+  
   mod_modal_make_server("modal_make_ui_1", 
                         # this reactive value is passed inside the module
                         # note you but the reactive value here, not its value, 
@@ -72,4 +80,12 @@ app_server <- function( input, output, session ){
                                  mod_observation_display_ui("siteobs")
                                  )
   )
+  
+  mod_ouranous_display_server("projection", got_clicked_our)
+  
+  mod_modal_make_server("modal_our",
+                        region = got_clicked_our,
+                        title_format_pattern = "Climate projection for %s",
+                        tabPanel(title = "Ouranous",
+                                 mod_ouranous_display_ui("projection")))
 }
