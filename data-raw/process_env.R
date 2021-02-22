@@ -28,7 +28,11 @@ meteo_precipitation_ECMWF <- meteo_var %>%
   select(-var) %>% 
   rename(total_mm = Sum)
 
-# TODO export this
+
+# export precip -----------------------------------------------------------
+
+
+usethis::use_data(meteo_precipitation_ECMWF)
 
 # a polar plot for the precipitation. 
 wet <- meteo_precipitation_ECMWF %>% #pull("Month") %>% as.numeric()
@@ -57,6 +61,12 @@ mean_temperature <- temper_var %>%
                                    "Oct", "Nov", "Dec"))) %>% 
   select(-var) %>% 
   rename(mean_deg_C = Average)
+
+
+
+# export temp -------------------------------------------------------------
+
+usethis::use_data(mean_temperature)
 
 
 # side by side, ggplotly

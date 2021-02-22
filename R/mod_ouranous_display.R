@@ -7,6 +7,7 @@
 #' @noRd 
 #'
 #' @importFrom shiny NS tagList 
+#' @export
 mod_ouranous_display_ui <- function(id){
   ns <- NS(id)
   tagList(
@@ -19,6 +20,7 @@ mod_ouranous_display_ui <- function(id){
 #' observation_display Server Functions
 #'
 #' @noRd 
+#' @export
 mod_ouranous_display_server <- function(id, region){
   assertthat::assert_that(shiny::is.reactive(region))
   
@@ -38,6 +40,7 @@ subset_our <- function(dd, reg){
   subset(dd, dd$region == reg)
 }
 
+#' @export
 plot_ouranous_one_region <- function(reg){
   project_plot <- subset_our(mapselector::ouranous_rcp, reg) %>%
     ggplot2::ggplot(ggplot2::aes(x = Annee, y = Avg, colour = rcp, fill = rcp,  ymin = Min, ymax = Max)) + 
@@ -60,18 +63,15 @@ plot_ouranous_one_region <- function(reg){
 # testing function
 testapp_ouranous_display <- function(){
   ui <- fluidPage(
-    mod_observation_display_ui("observation_display_ui_1")
+    mod_ouranous_display_ui("observation_display_ui_1")
   )
   
   server <-  function(input, output, session) {
     
-    downloaded_sites <- rcoleo::download_sites_sf()
-    
-    mod_observation_display_server("observation_display_ui_1", 
-                                   site = downloaded_sites, 
-                                   region = reactive("132_116_F01"))
+    mod_ouranous_display_server("observation_display_ui_1", 
+                                   region = reactive("Abitibi-Témiscamingue"))
   }
   shinyApp(ui, server)
 }
 
-testapp_observation_display()
+testapp_ouranous_display()

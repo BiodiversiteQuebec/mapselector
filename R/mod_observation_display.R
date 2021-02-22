@@ -7,6 +7,7 @@
 #' @noRd 
 #'
 #' @importFrom shiny NS tagList 
+#' @export
 mod_observation_display_ui <- function(id){
   ns <- NS(id)
   tagList(
@@ -19,6 +20,7 @@ mod_observation_display_ui <- function(id){
 #' observation_display Server Functions
 #'
 #' @noRd 
+#' @export
 mod_observation_display_server <- function(id, site, region, token = Sys.getenv("RCOLEO_TOKEN")){
   assertthat::assert_that(shiny::is.reactive(region))
   
