@@ -6,38 +6,28 @@
 #' @importFrom magrittr %>%
 #' @noRd
 app_server <- function( input, output, session ){
-  # Your application server logic 
   
-  # help functions and modals
+  
+  # help modules ------------------------------------------------------------
+  
   mod_modal_observeEvent_tutorial_server("info1",
                                          title_text = "title for help",
-                                         md_file = "demo_help.md")
-                                         
-  # make a map of your own
-  # needs and id
-  got_clicked <- mod_map_select_server("map",what_to_click = "shape",
+                                         md_file = "demo_help.md")  
+  
+
+  # eco regions of quebec ---------------------------------------------------
+
+  
+  # server function to create the map and capture what is clicked
+  got_clicked <- mod_map_select_server("map",
+                                       what_to_click = "shape",
                                        fun = make_leaflet_map,
                                        # these are arguments to make_leaflet_map
                                        mapdata = mapselector::CERQ,
                                        label = TRUE,
                                        region_name = "NOM_PROV_N")
   
-  downloaded_sites <- rcoleo::download_sites_sf()
-  
-  
-  got_clicked_site <- mod_map_select_server("sitemap",
-                                            what_to_click = "marker", 
-                                            fun = plot_rcoleo_sites,
-                                            rcoleo_sites_sf = downloaded_sites)
-  
-  
-  got_clicked_our <- mod_map_select_server("ouranous_map",what_to_click = "shape",
-                        fun = make_leaflet_map,
-                        # these are arguments to make_leaflet_map
-                        mapdata = mapselector::regions_simplified_Ouranos,
-                        label = TRUE,
-                        region_name = "Region")
-  
+  # react to a clicked region
   mod_modal_make_server("modal_make_ui_1", 
                         # this reactive value is passed inside the module
                         # note you but the reactive value here, not its value, 
@@ -60,12 +50,28 @@ app_server <- function( input, output, session ){
                         tabPanel(title = "ou suis-je",
                                  renderText({paste("tu est sur", got_clicked())})
                         )
-                        )
+  )
   
+  
+  # sites -------------------------------------------------------------------
+  
+  # download sites
+  downloaded_sites <- rcoleo::download_sites_sf()
+  
+  
+  # plot sites
+  got_clicked_site <- mod_map_select_server("sitemap",
+                                            what_to_click = "marker", 
+                                            fun = plot_rcoleo_sites,
+                                            # argument to plot_rcoleo_sites
+                                            rcoleo_sites_sf = downloaded_sites)
+  
+  # react to the site clicked with a calculation
   mod_observation_display_server("siteobs", 
                                  site = downloaded_sites, 
                                  region = got_clicked_site)
-  
+
+  # display a modal to respond to the clicked site
   mod_modal_make_server("modal_make_ui_1", 
                         # this reactive value is passed inside the module
                         # note you but the reactive value here, not its value, 
@@ -78,11 +84,24 @@ app_server <- function( input, output, session ){
                         ),
                         tabPanel(title = "Observations",
                                  mod_observation_display_ui("siteobs")
-                                 )
+                        )
   )
   
+
+  # Ouranous maps -----------------------------------------------------------
+  
+  # plot ouranous region and save what gets selected
+  got_clicked_our <- mod_map_select_server("ouranous_map",what_to_click = "shape",
+                        fun = make_leaflet_map,
+                        # these are arguments to make_leaflet_map
+                        mapdata = mapselector::regions_simplified_Ouranos,
+                        label = TRUE,
+                        region_name = "Region")
+
+  # react to the click -- select and plot ouranous projections 
   mod_ouranous_display_server("projection", got_clicked_our)
   
+  # modal to display ouranous projections for the region clicked
   mod_modal_make_server("modal_our",
                         region = got_clicked_our,
                         title_format_pattern = "Climate projection for %s",

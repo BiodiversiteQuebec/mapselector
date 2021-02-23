@@ -9,7 +9,7 @@ app_ui <- function(request) {
     marcel(filename = "marcel.md"),
     golem_add_external_resources(),
     tableau_de_bord(
-      dash_title(title = "Analyse de raréfaction"), 
+      dash_title(title = "Bonjour Quebec"), 
       dash_sidebar(
         badge(),
         textInput("name", "What's your name?"),
