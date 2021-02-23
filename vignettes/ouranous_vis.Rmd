@@ -1,8 +1,8 @@
 ---
-title: "ouranous_vis"
+title: "ouranos_vis"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{ouranous_vis}
+  %\VignetteIndexEntry{ouranos_vis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -23,15 +23,15 @@ subset_our <- function(dd, reg){
   subset(dd, dd$region == reg)
 }
 
-plot_ouranous_one_region <- function(reg){
-  project_plot <- subset_our(mapselector::ouranous_rcp, reg) %>%
+plot_ouranos_one_region <- function(reg){
+  project_plot <- subset_our(mapselector::ouranos_rcp, reg) %>%
     ggplot(aes(x = Annee, y = Avg, colour = rcp, fill = rcp,  ymin = Min, ymax = Max)) + 
     geom_line() + facet_wrap(~var, scales = "free") + geom_ribbon(alpha = 0.1)
   
   project_plot + 
     geom_line(aes(x = Annee, y = Obs),inherit.aes = FALSE, 
-              data = subset_our(mapselector::ouranous_observed, reg))
+              data = subset_our(mapselector::ouranos_observed, reg))
 }
 
-plot_ouranous_one_region("Abitibi-Témiscamingue")
+plot_ouranos_one_region("Abitibi-Témiscamingue")
 ```

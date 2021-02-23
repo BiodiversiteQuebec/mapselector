@@ -1,11 +1,11 @@
-## read in the ouranous data
+## read in the ouranos data
 
 library(tidyverse)
 
-# ouranous metadata -- inferred from reading Claire's script in tableau-explo-sites
+# ouranos metadata -- inferred from reading Claire's script in tableau-explo-sites
 # rcp45 and rcp 85 are actually the minimum and maximum of predictions -- not different scenarios
 
-# get ouranous data
+# get ouranos data
 filenames <- dir("data-raw/data_ouranos/", full.names = TRUE, pattern = "csv$") %>% 
   set_names(nm = basename(.))
 
@@ -53,14 +53,14 @@ separate_names %>% slice(62:67) %>% visdat::vis_dat(.)
 
 
 
-# ouranous observations ---------------------------------------------------
+# ouranos observations ---------------------------------------------------
 
 # create one table just for observations -- drop any that don't have an "obs" value
-ouranous_observed <- separate_names %>% 
+ouranos_observed <- separate_names %>% 
   select(region:`Hist-Max`) %>% 
   filter(!is.na(Obs))
 
-ouranous_observed %>% glimpse %>% 
+ouranos_observed %>% glimpse %>% 
   ggplot(aes(x = Annee, 
              y = Obs, 
              ymin = `Hist-Min`, 
@@ -70,14 +70,14 @@ ouranous_observed %>% glimpse %>%
   facet_wrap(~var, scales = "free_y")
 
 
-usethis::use_data(ouranous_observed)
+usethis::use_data(ouranos_observed)
 
 
-# ouranous rcp ------------------------------------------------------------
+# ouranos rcp ------------------------------------------------------------
 
 
 # now look at the rcp values separately
-ouranous_rcp <- separate_names %>% 
+ouranos_rcp <- separate_names %>% 
   filter(!is.na(`rcp45-Min`)) %>% 
   select(region, var, Annee, `rcp45-Min`:`rcp85-Max`) %>% 
   pivot_longer(`rcp45-Min`:`rcp85-Max`) %>% 
@@ -85,7 +85,7 @@ ouranous_rcp <- separate_names %>%
   pivot_wider(names_from = v, values_from = value)
 
 
-project_plot <- ouranous_rcp %>% 
+project_plot <- ouranos_rcp %>% 
   filter(str_detect(var, "temp"), str_detect(region, "Abi")) %>%
   ggplot(aes(x = Annee, y = Avg, colour = rcp, fill = rcp,  ymin = Min, ymax = Max)) + 
   geom_line() + facet_wrap(~region) + geom_ribbon(alpha = 0.1)
@@ -95,12 +95,12 @@ project_plot +
               filter(str_detect(var, "temp"), str_detect(region, "Abi")))
 
 
-usethis::use_data(ouranous_rcp)
+usethis::use_data(ouranos_rcp)
 
-# ouranous regions --------------------------------------------------------
+# ouranos regions --------------------------------------------------------
 
 
-# do I need to do something with the geojson from ouranous??? probably 
+# do I need to do something with the geojson from ouranos??? probably 
 
 regions_simplified_Ouranos <- geojsonio::geojson_sf("data-raw//data_ouranos/regions_simplified_Ouranos.geojson") 
 

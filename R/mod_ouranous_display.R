@@ -8,7 +8,7 @@
 #'
 #' @importFrom shiny NS tagList 
 #' @export
-mod_ouranous_display_ui <- function(id){
+mod_ouranos_display_ui <- function(id){
   ns <- NS(id)
   tagList(
     tags$div(
@@ -21,14 +21,14 @@ mod_ouranous_display_ui <- function(id){
 #'
 #' @noRd 
 #' @export
-mod_ouranous_display_server <- function(id, region){
+mod_ouranos_display_server <- function(id, region){
   assertthat::assert_that(shiny::is.reactive(region))
   
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
     output$plot = plotly::renderPlotly(plotly::ggplotly(
-      plot_ouranous_one_region(reg = region()))
+      plot_ouranos_one_region(reg = region()))
       )
   })
 }
@@ -41,8 +41,8 @@ subset_our <- function(dd, reg){
 }
 
 #' @export
-plot_ouranous_one_region <- function(reg){
-  project_plot <- subset_our(mapselector::ouranous_rcp, reg) %>%
+plot_ouranos_one_region <- function(reg){
+  project_plot <- subset_our(mapselector::ouranos_rcp, reg) %>%
     ggplot2::ggplot(ggplot2::aes(x = Annee, y = Avg, colour = rcp, fill = rcp,  ymin = Min, ymax = Max)) + 
     ggplot2::geom_line() + 
     ggplot2::facet_wrap(~var, scales = "free") + 
@@ -50,7 +50,7 @@ plot_ouranous_one_region <- function(reg){
   
   project_plot + 
     ggplot2::geom_line(ggplot2::aes(x = Annee, y = Obs),inherit.aes = FALSE, 
-              data = subset_our(mapselector::ouranous_observed, reg))
+              data = subset_our(mapselector::ouranos_observed, reg))
 }
 
     
@@ -61,17 +61,17 @@ plot_ouranous_one_region <- function(reg){
 # mod_observation_display_server("observation_display_ui_1")
 
 # testing function
-testapp_ouranous_display <- function(){
+testapp_ouranos_display <- function(){
   ui <- fluidPage(
-    mod_ouranous_display_ui("observation_display_ui_1")
+    mod_ouranos_display_ui("observation_display_ui_1")
   )
   
   server <-  function(input, output, session) {
     
-    mod_ouranous_display_server("observation_display_ui_1", 
+    mod_ouranos_display_server("observation_display_ui_1", 
                                    region = reactive("Abitibi-Témiscamingue"))
   }
   shinyApp(ui, server)
 }
 
-testapp_ouranous_display()
+testapp_ouranos_display()

@@ -61,7 +61,7 @@ usethis::use_test( "app" )
 ## Vignette ----
 usethis::use_vignette("map_options")
 usethis::use_vignette("coleo_sitemap")
-usethis::use_vignette("ouranous_vis")
+usethis::use_vignette("ouranos_vis")
 devtools::build_vignettes()
 
 ## Code Coverage----
