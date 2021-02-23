@@ -72,10 +72,8 @@ app_server <- function( input, output, session ){
                                  region = got_clicked_site)
 
   # display a modal to respond to the clicked site
-  mod_modal_make_server("modal_make_ui_1", 
+  mod_modal_make_server("modal_make_ui_2", 
                         # this reactive value is passed inside the module
-                        # note you but the reactive value here, not its value, 
-                        # which you would get with chosen_region()
                         region = got_clicked_site,
                         # give the title that you want for the modal
                         title_format_pattern = "Visualization for %s",

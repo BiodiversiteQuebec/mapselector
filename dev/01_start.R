@@ -29,7 +29,7 @@ golem::fill_desc(
 )     
 
 ## Set {golem} options ----
-golem::set_golem_options(golem_version = "0.0.1")
+golem::set_golem_options(golem_version = "0.3.0")
 
 ## Create Common Files ----
 ## See ?usethis for more information
