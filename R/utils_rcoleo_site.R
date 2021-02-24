@@ -15,14 +15,16 @@ icon_colours <- function(){
 }  
 
 
+fa_col <- function(txt) fontawesome::fa(txt, fill = "black")
+
 #' @export
 make_site_icons <- function() {
-  fa_col <- function(txt) fontawesome::fa(txt, fill = "white")
   
-  icon_options <- lapply(X = icon_colours(), function(l) list(
-    text = fa_col(l$ico),
-    markerColor = l$col
-    ))
+  icon_options <- lapply(X = icon_colours(), 
+                         function(l) list(
+                           text = fa_col(l$ico),
+                           markerColor = l$col
+                         ))
   
   awesome_icon_list <- lapply(icon_options, do.call, what = leaflet::makeAwesomeIcon)
   

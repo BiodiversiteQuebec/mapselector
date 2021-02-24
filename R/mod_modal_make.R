@@ -9,6 +9,7 @@ mod_modal_make_server <- function(id,
                                   title_format_pattern,
                                   ...){
   if (missing(title_format_pattern) | !is.character(title_format_pattern)) stop("Please provide a title for the modal")
+  
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
