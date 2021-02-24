@@ -2,27 +2,25 @@
 #' @export
 icon_colours <- function(){
   icon_options <- list(
-    lac             = list(ico = "fish",     col = "darkblue"),
-    rivière         = list(ico = "fish",     col = "blue"),
-    toundrique      = list(ico = "leaf",     col = "orange"),
-    marais          = list(ico = "frog",     col = "darkgreen"),
-    "marais côtier" = list(ico = "water",    col = "cadetblue"),
-    forestier       = list(ico = "tree",     col = "green"),
-    tourbière       = list(ico = "seedling", col = "darkred")
+    lac             = list(ico = '<i class="fas fa-fish"></i>',     col = "darkblue"),
+    rivière         = list(ico = '<i class="fas fa-fish"></i>',     col = "blue"),
+    toundrique      = list(ico = '<i class="fas fa-leaf"></i>',     col = "orange"),
+    marais          = list(ico = '<i class="fas fa-frog"></i>',     col = "darkgreen"),
+    "marais côtier" = list(ico = '<i class="fas fa-water"></i>',    col = "cadetblue"),
+    forestier       = list(ico = '<i class="fas fa-tree"></i>',     col = "green"),
+    tourbière       = list(ico = '<i class="fas fa-seedling"></i>', col = "darkred")
   )
   
   return(icon_options)
 }  
 
 
-fa_col <- function(txt) fontawesome::fa(txt, fill = "black")
-
 #' @export
 make_site_icons <- function() {
   
   icon_options <- lapply(X = icon_colours(), 
                          function(l) list(
-                           text = fa_col(l$ico),
+                           text =  l$ico,
                            markerColor = l$col
                          ))
   

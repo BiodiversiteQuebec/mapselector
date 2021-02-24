@@ -17,7 +17,6 @@
 ## Add one line by package you want to add as dependency
 usethis::use_package( "leaflet" )
 usethis::use_dev_package("golem")
-usethis::use_dev_package("fontawesome", remote = "rstudio/fontawesome")
 usethis::use_package( "assertthat", type = "Suggests")
 usethis::use_package( "sf", type = "Suggests")
 usethis::use_package("plotly")

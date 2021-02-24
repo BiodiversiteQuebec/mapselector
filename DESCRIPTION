@@ -12,7 +12,6 @@ Imports:
     leaflet,
     raster,
     sf,
-    fontawesome (>= 0.1.0),
     rcoleo (>= 1.0.4),
     plotly
 Encoding: UTF-8
@@ -30,5 +29,4 @@ URL: https://github.com/ReseauBiodiversiteQuebec/mapselector
 BugReports: https://github.com/ReseauBiodiversiteQuebec/mapselector/issues
 Remotes: 
     Thinkr-open/golem,
-    rstudio/fontawesome,
     ReseauBiodiversiteQuebec/rcoleo
