@@ -38,7 +38,6 @@ separate_names <- ff %>%
 # visualize what is missing
 separate_names %>% 
   filter(var %>% str_detect("tation"))
-visdat::vis_dat()
 
 # precip??
 
