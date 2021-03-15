@@ -20,6 +20,7 @@ usethis::use_dev_package("golem")
 usethis::use_package( "assertthat", type = "Suggests")
 usethis::use_package( "sf", type = "Suggests")
 usethis::use_package("plotly")
+usethis::use_package("purrr")
 
 ## Add modules ----
 ## Add modules ----
@@ -61,6 +62,9 @@ usethis::use_test( "app" )
 usethis::use_vignette("map_options")
 usethis::use_vignette("coleo_sitemap")
 usethis::use_vignette("ouranos_vis")
+usethis::use_vignette(
+  "campaign-summary"
+)
 devtools::build_vignettes()
 
 ## Code Coverage----

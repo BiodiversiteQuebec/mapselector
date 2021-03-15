@@ -10,11 +10,8 @@ test_that("observation_display works as expected",{
                region = reactive("132_116_F01")
              ),
              {
-               testthat::expect_s3_class(subsite(), "data.frame")
                
-               testthat::expect_s3_class(resp(), "data.frame")
-               
-               testthat::expect_that(to_show(), has_names(c("date", "espece")))
+               testthat::expect_equal(names(to_show()), c("date", "espece"))
                
                testthat::expect_s3_class(to_show(), "data.frame")
              })

@@ -42,41 +42,6 @@ tab_map <- function(title = "Map",
   )
 }
 
-#' @export
-tab_gen <- function(title = "Data download", outputFunction = downloadButton, id = "DL_data",...){
-  tabPanel(title,
-           outputFunction(id),...)
-}
-
-
-## dashboard functions
-
-#' @export
-dash_title <- function(title = "Analyse de raréfaction"){
-  fillRow(
-    flex = c(3,1,1),
-    fillCol(
-      tags$div(
-        class = "left-header",
-        tags$div(class = "logo", 
-                 tags$img(src = "https://coleo.biodiversite-quebec.ca/apps/shiny-src/coleo_test_small.png",
-                          height = "60px")),
-        tags$div(class = "dash-title", title)
-      ),
-      hover = "Coléo"),
-    height = "100px",
-    class= "top-header")
-}
-
-# this function needs to count the tabs
-#' @export
-dash_tabs <- function(...){
-  
-  tabpanel <- add_class_tabs(prefix = "maintab-", ...)
-
-  
-  fillCol(id="main",tabpanel)
-}
 
 # function that takes in tabs as dots and returns a tabpanel, with each tab given a prefix and a number
 add_class_tabs <-  function(prefix = "maintab-", ..., type = "tabs"){
@@ -98,6 +63,45 @@ add_class_tabs <-  function(prefix = "maintab-", ..., type = "tabs"){
   return(tabpanel)
 }
     
+
+# this function needs to count the tabs
+#' @export
+dash_tabs <- function(...){
+  
+  tabpanel <- add_class_tabs(prefix = "maintab-", ...)
+  
+  
+  fillCol(id="main",tabpanel)
+}
+
+
+#' @export
+tab_gen <- function(title = "Data download", outputFunction = downloadButton, id = "DL_data",...){
+  tabPanel(title,
+           outputFunction(id),...)
+}
+
+
+
+## dashboard functions
+
+#' @export
+dash_title <- function(title = "Analyse de raréfaction"){
+  fillRow(
+    flex = c(3,1,1),
+    fillCol(
+      tags$div(
+        class = "left-header",
+        tags$div(class = "logo", 
+                 tags$img(src = "https://coleo.biodiversite-quebec.ca/apps/shiny-src/coleo_test_small.png",
+                          height = "60px")),
+        tags$div(class = "dash-title", title)
+      ),
+      hover = "Coléo"),
+    height = "100px",
+    class= "top-header")
+}
+
   #' @export
 dash_sidebar <- function(badge_function, ...){
   fillCol(id = "sidebar",
