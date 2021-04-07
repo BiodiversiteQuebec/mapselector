@@ -19,9 +19,12 @@ mod_observation_display_ui <- function(id){
     
 #' observation_display Server Functions
 #'
+#' @param id the id for this modal
+#' @param site the site data frame
+#' @param region reactive value, the region that was clicked
 #' @noRd 
 #' @export
-mod_observation_display_server <- function(id, site, region, token = Sys.getenv("RCOLEO_TOKEN")){
+mod_observation_display_server <- function(id, site, region, token = rcoleo:::bearer()){
   assertthat::assert_that(shiny::is.reactive(region))
   
   moduleServer( id, function(input, output, session){
@@ -41,12 +44,19 @@ mod_observation_display_server <- function(id, site, region, token = Sys.getenv(
 get_subset_site <- function(site = rcoleo::download_sites_sf(), 
                             site_code_sel = "137_111_F01",
                             token = rcoleo:::bearer()){
+  
+  # before the click the map, do nothing 
+  req(site_code_sel)
+  
+  # subset the site list by any requests
   subsite <- subset(site, site_code == site_code_sel)
   
   
   # download from coleo database
   resp <- rcoleo::get_all_observations_from_a_site(subsite, token = token)
 
+  if (nrow(resp$obs_resp[[1]]) == 0) message("there is no data here")
+  
   # return(resp)  
   # to_show <- reactive({
     with(resp$obs_resp[[1]],

@@ -55,8 +55,13 @@ app_server <- function( input, output, session ){
   
   # sites -------------------------------------------------------------------
   
+  
+  
   # download sites
   downloaded_sites <- rcoleo::download_sites_sf()
+  
+
+  
   
   
   # plot sites
