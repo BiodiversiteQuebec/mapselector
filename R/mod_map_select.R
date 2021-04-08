@@ -93,3 +93,54 @@ trialApp()
 # select by name the region from the map, in the input list??
 
 # TODO add the controls to the map and ALSO extract those instructions from the map module
+
+
+
+# test functions to make sure the badges plot -----------------------------
+
+small_ui <- function(request) {
+  tagList(
+    tableau_de_bord(
+      dash_title(title = "Explorateur des sites"), 
+      dash_sidebar(
+        badge(text_badge = "Voila un survol"),
+        tableOutput("sel")
+      ), 
+      dash_tabs(
+        #maybe a little strange, but here we pass in the UI of a modal and the id that defines it.
+        tab_map(title = "Site Map", id = "bat_map", outputFunction = mod_map_select_ui)
+      )
+    )
+  )
+}  
+
+#' The application server-side
+#' 
+#' @param input,output,session Internal parameters for {shiny}. 
+#'     DO NOT REMOVE.
+#' @import shiny
+#' @import mapselector
+#' @importFrom magrittr %>%
+#' @noRd
+small_server <- function(input, output, session) {
+  
+  downloaded_sites <- rcoleo::download_sites_sf()
+  
+  selsite <- mod_map_select_server("bat_map",
+                                   what_to_click = "marker",
+                                   fun = plot_rcoleo_sites,
+                                   rcoleo_sites_sf = downloaded_sites)
+  
+  
+  ff <- reactive({mapselector::get_subset_site(site = downloaded_sites,
+                                               site_code_sel = selsite())})
+  
+  output$sel <- renderTable(head(ff()))
+}
+
+
+smallapp <- function(){
+  shinyApp(
+    ui = small_ui,
+    server = small_server)
+}

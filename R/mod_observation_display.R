@@ -40,7 +40,7 @@ mod_observation_display_server <- function(id, site, region, token = rcoleo:::be
 }
 
 
-# 
+#' @export 
 get_subset_site <- function(site = rcoleo::download_sites_sf(), 
                             site_code_sel = "137_111_F01",
                             token = rcoleo:::bearer()){

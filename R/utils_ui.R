@@ -134,7 +134,10 @@ tableau_de_bord <- function(titre = dash_title(),
   fillPage(
     tags$head(
                 tags$link(rel = "stylesheet", type = "text/css", href = "https://coleo.biodiversite-quebec.ca/apps/shiny-src/style.css"),
-                tags$script(src = "https://coleo.biodiversite-quebec.ca/apps/shiny-src/tableau.js")
+                tags$script(src = "https://coleo.biodiversite-quebec.ca/apps/shiny-src/tableau.js"),
+                htmltools::htmlDependency("font-awesome", 
+                                          "5.13.0", "www/shared/fontawesome", package = "shiny", 
+                                          stylesheet = c("css/all.min.css", "css/v4-shims.min.css"))
     ),
     titre,
     fillRow(
