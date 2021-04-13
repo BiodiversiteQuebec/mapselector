@@ -96,7 +96,7 @@ trialApp()
 
 
 
-# test functions to make sure the badges plot -----------------------------
+# test functions to make sure the icons plot -----------------------------
 
 small_ui <- function(request) {
   tagList(
@@ -115,13 +115,6 @@ small_ui <- function(request) {
 }  
 
 #' The application server-side
-#' 
-#' @param input,output,session Internal parameters for {shiny}. 
-#'     DO NOT REMOVE.
-#' @import shiny
-#' @import mapselector
-#' @importFrom magrittr %>%
-#' @noRd
 small_server <- function(input, output, session) {
   
   downloaded_sites <- rcoleo::download_sites_sf()

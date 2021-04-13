@@ -135,9 +135,7 @@ tableau_de_bord <- function(titre = dash_title(),
     tags$head(
                 tags$link(rel = "stylesheet", type = "text/css", href = "https://coleo.biodiversite-quebec.ca/apps/shiny-src/style.css"),
                 tags$script(src = "https://coleo.biodiversite-quebec.ca/apps/shiny-src/tableau.js"),
-                htmltools::htmlDependency("font-awesome", 
-                                          "5.13.0", "www/shared/fontawesome", package = "shiny", 
-                                          stylesheet = c("css/all.min.css", "css/v4-shims.min.css"))
+                fa_dependency()
     ),
     titre,
     fillRow(
@@ -185,4 +183,19 @@ marcel <- function(filename){
       includeMarkdown(f)
     )
   )
+}
+
+
+#' Depend on fontawesome css for the map icons
+#'
+#' Any figure that intends to use font awesome classes for the icons needs this
+#' somewhere. this is included by default in tableau_de_bord(), but it is also
+#' available for use in any fluidPage, tagList, etc.
+#'
+#' @return htmlDependency on font-awesome
+#' @export
+fa_dependency <- function(){
+  htmltools::htmlDependency("font-awesome", 
+                            "5.13.0", "www/shared/fontawesome", package = "shiny", 
+                            stylesheet = c("css/all.min.css", "css/v4-shims.min.css"))
 }

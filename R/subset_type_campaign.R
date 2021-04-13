@@ -42,7 +42,7 @@ subset_site_df <- function(downloaded_sites, campaign_type = "acoustique"){
   downloaded_sites <- subset(downloaded_sites, has_obs)
   }
   
-  return(downladed_sites)
+  return(downloaded_sites)
 }
 
 

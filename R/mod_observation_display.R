@@ -55,15 +55,8 @@ get_subset_site <- function(site = rcoleo::download_sites_sf(),
   # download from coleo database
   resp <- rcoleo::get_all_observations_from_a_site(subsite, token = token)
 
-  if (nrow(resp$obs_resp[[1]]) == 0) message("there is no data here")
+  if (nrow(resp$obs_resp[[1]]) == 0) message("there is no data here") else return(resp$obs_resp[[1]])
   
-  # return(resp)  
-  # to_show <- reactive({
-    with(resp$obs_resp[[1]],
-         data.frame(date = created_at,
-                    espece = obs_species.taxa_name
-         ))
-  # })
 }
 
 
