@@ -50,7 +50,7 @@ golem::add_css_file( "style" )
 ## If you have data in your package
 usethis::use_data_raw( name = "CERQ", open = FALSE ) 
 
-usethis::use_data_raw( name = "font-awesome" ) 
+usethis::use_data_raw( name = "human_footprint" ) 
 
 ## Tests ----
 ## Add one line by test you want to create
