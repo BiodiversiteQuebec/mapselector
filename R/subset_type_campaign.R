@@ -33,14 +33,19 @@ subset_type_campaign <- function(campaign_list, campaign_type){
 #' @export
 subset_site_df <- function(downloaded_sites, campaign_type = "acoustique"){
   
-  if (campaign_type != "tous") {
+  # req(campaign_type)
+  # if (campaign_type != "tous") {
   downloaded_sites$campaigns <- subset_type_campaign(downloaded_sites$campaigns, campaign_type)
   
   
   has_obs <- purrr::map_lgl(downloaded_sites$campaigns, ~ nrow(.) > 0)
   
-  downloaded_sites <- subset(downloaded_sites, has_obs)
-  }
+  ## or, does it have ALL the ones selected?
+  has_all <- purrr::map_lgl(downloaded_sites$campaigns, ~nrow(.) == length(campaign_type))
+  
+  # logic to get one or the other?
+  downloaded_sites <- subset(downloaded_sites, has_all)
+  # }
   
   return(downloaded_sites)
 }

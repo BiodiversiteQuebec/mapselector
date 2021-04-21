@@ -29,6 +29,7 @@ golem::add_module( name = "map_select" ) # Name of the module
 golem::add_module( name = "modal_make" ) # Name of the module
 golem::add_module(name = "modal_interactive" )
 golem::add_module( name = "observation_display" )
+golem::add_module( name = "map_campaign_type")
 
 
 ## Add helper functions ----
@@ -39,7 +40,6 @@ golem::add_utils( "ui" )
 golem::add_utils( "region" )
 golem::add_utils( "mapselector_dev" )
 golem::add_utils( "rcoleo_site" )
-
 ## External resources
 ## Creates .js and .css files at inst/app/www
 golem::add_js_file( "tableau" )

@@ -93,9 +93,8 @@ runfun <- function(x, fun){
 #' 
 #' @export
 plot_markers_controls <- function(site_info_sf, markers){
-  blank_map <- site_info_sf %>%  
-    leaflet::leaflet(.) %>% 
-    leaflet::addTiles(.)
+  
+  blank_map <- make_leaflet_empty()
   
   p <- Reduce(f = runfun, markers, init = blank_map)
   
@@ -107,10 +106,33 @@ plot_markers_controls <- function(site_info_sf, markers){
 
 
 #' @export
-plot_rcoleo_sites <- function(rcoleo_sites_sf = rcoleo::download_sites_sf(token = Sys.getenv("RCOLEO_TOKEN")),
+plot_rcoleo_sites <- function(rcoleo_sites_sf = 
+                                rcoleo::download_sites_sf(
+                                  token = Sys.getenv("RCOLEO_TOKEN")),
                               site_id_col = "site_code"){
   
   icon_adders <- make_icon_adders(rcoleo_sites_sf, site_id_col = site_id_col)
   
   plot_markers_controls(rcoleo_sites_sf, icon_adders)
+}
+
+update_markers_proxy <- function(id_of_map, markers){
+  
+  blank_map <- leaflet::leafletProxy(id_of_map) %>%
+    leaflet::clearMarkers()
+  
+  p <- Reduce(f = runfun, markers, init = blank_map)
+  
+  leaflet::addLayersControl(p ,
+                            overlayGroups = names(markers),
+                            options = leaflet::layersControlOptions(collapsed = FALSE))
+  
+}
+
+
+update_subset_sites <- function(subset_sites, id_of_map, site_id_col = "site_code"){
+  
+  icon_adders <- make_icon_adders(subset_sites, site_id_col = site_id_col)
+  
+  update_markers_proxy(id_of_map, icon_adders)
 }
