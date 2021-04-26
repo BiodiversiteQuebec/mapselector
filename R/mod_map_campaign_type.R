@@ -36,13 +36,17 @@ mod_map_campaign_type_server <- function(id, map_id = "siteplot"){
                                   campaign_type = input$camp_types_sel)
     })
     
+    # or could be passing the map_id in..
     output[[map_id]] <- leaflet::renderLeaflet(make_leaflet_empty())
     
     observeEvent(
       sites_subset(),
       update_subset_sites(sites_subset(), map_id))
     
-    return(reactive(input$camp_types_sel))
+    return(list(
+      camps = reactive(input$camp_types_sel),
+      click = reactive(input[[paste0(map_id, "_marker_click")]]$id)
+      ))
     
   })
 }
@@ -59,11 +63,19 @@ testapp_map_campaign_type <- function(){
   ui <- fluidPage(
     fa_dependency(),
     mod_map_campaign_type_ui("ff"),
-    leaflet::leafletOutput(NS("ff","wow_its_a_map"))
+    textOutput("what"),
+    textOutput("where"),
+    leaflet::leafletOutput(NS("ff", "wow_its_a_map"))
   )
   
   server <-  function(input, output, session) {
+    # output[[NS("ff", "wow_its_a_map")]] <- leaflet::renderLeaflet(make_leaflet_empty())
     out <- mod_map_campaign_type_server("ff", map_id = "wow_its_a_map")
+    
+    outtext <- reactive(paste("you just selected", paste(out$camps(), collapse = " ")))
+    outclik <- reactive(paste("you just clicked the site", out$click()))
+    output$what <- renderText(outtext())
+    output$where <- renderText(outclik())
   }
   shinyApp(ui, server)
 }
