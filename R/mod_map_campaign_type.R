@@ -8,10 +8,10 @@
 #'
 #' @importFrom shiny NS tagList 
 #' @export
-mod_map_campaign_type_ui <- function(id){
+mod_campaign_type_checkbox <- function(id){
   ns <- NS(id)
   tagList(
-    checkboxGroupInput(ns("camp_types_sel"),
+    checkboxGroupInput(ns("selected_campaigns"),
                        label = "Quel types de campaigns?",
                        choices = c(
                          "végétation", "papilionidés", "acoustique", "insectes_sol", 
@@ -19,12 +19,20 @@ mod_map_campaign_type_ui <- function(id){
                        selected = c("acoustique", "odonates"))
   )
 }
-    
+ 
+#' @export
+mod_campaign_type_map_plot <- function(id){
+  ns <- NS(id)
+  tagList(
+    leaflet::leafletOutput(ns("map"))
+  )
+}
+   
 #' map_campaign_type Server Functions
 #'
 #' @noRd 
 #' @export
-mod_map_campaign_type_server <- function(id, map_id = "siteplot"){
+mod_map_campaign_type_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     ## composed module for selecting a site or sites from the coleo database
@@ -33,19 +41,21 @@ mod_map_campaign_type_server <- function(id, map_id = "siteplot"){
     
     sites_subset <- reactive({
       mapselector::subset_site_df(downloaded_sites = rcoleo_sites_sf,
-                                  campaign_type = input$camp_types_sel)
+                                  campaign_type = input$selected_campaigns)
     })
     
     # or could be passing the map_id in..
-    output[[map_id]] <- leaflet::renderLeaflet(make_leaflet_empty())
+    output$map <- leaflet::renderLeaflet(make_leaflet_empty())
     
+    # this works because update_subset_sites calls leafletProxy, which 
+    # knows that it is inside a module and adds the module id
     observeEvent(
       sites_subset(),
-      update_subset_sites(sites_subset(), map_id))
+      update_subset_sites(sites_subset(), "map"))
     
     return(list(
-      camps = reactive(input$camp_types_sel),
-      click = reactive(input[[paste0(map_id, "_marker_click")]]$id)
+      camps = reactive(input$selected_campaigns),
+      click = reactive(input[[paste0("map", "_marker_click")]]$id)
       ))
     
   })
@@ -57,20 +67,19 @@ mod_map_campaign_type_server <- function(id, map_id = "siteplot"){
 ## To be copied in the server
 # mod_map_campaign_type_server("map_campaign_type_ui_1")
 
-
 # test function
 testapp_map_campaign_type <- function(){
   ui <- fluidPage(
     fa_dependency(),
-    mod_map_campaign_type_ui("ff"),
+    mod_campaign_type_checkbox("ff"),
     textOutput("what"),
     textOutput("where"),
-    leaflet::leafletOutput(NS("ff", "wow_its_a_map"))
+    mod_campaign_type_map_plot("ff")
   )
   
   server <-  function(input, output, session) {
-    # output[[NS("ff", "wow_its_a_map")]] <- leaflet::renderLeaflet(make_leaflet_empty())
-    out <- mod_map_campaign_type_server("ff", map_id = "wow_its_a_map")
+    
+    out <- mod_map_campaign_type_server("ff")
     
     outtext <- reactive(paste("you just selected", paste(out$camps(), collapse = " ")))
     outclik <- reactive(paste("you just clicked the site", out$click()))
@@ -79,3 +88,8 @@ testapp_map_campaign_type <- function(){
   }
   shinyApp(ui, server)
 }
+
+
+
+# reactlog::reactlog_enable()
+# testapp_map_campaign_type()
