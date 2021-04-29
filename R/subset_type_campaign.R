@@ -9,7 +9,7 @@
 #' @return
 #' @export
 subset_type_campaign <- function(campaign_list, campaign_type){
-  assertthat::assert_that(all(campaign_type %in% c(
+  stopifnot(all(campaign_type %in% c(
     "végétation", "papilionidés", "acoustique", "insectes_sol", 
     "mammifères", "odonates", "zooplancton")))
   
@@ -38,10 +38,11 @@ subset_site_df <- function(downloaded_sites, campaign_type = "acoustique"){
   downloaded_sites$campaigns <- subset_type_campaign(downloaded_sites$campaigns, campaign_type)
   
   
-  has_obs <- purrr::map_lgl(downloaded_sites$campaigns, ~ nrow(.) > 0)
+  # has_obs <- purrr::map_lgl(downloaded_sites$campaigns, ~ nrow(.) > 0)
   
   ## or, does it have ALL the ones selected?
-  has_all <- purrr::map_lgl(downloaded_sites$campaigns, ~nrow(.) == length(campaign_type))
+  
+  has_all <- purrr::map_lgl(downloaded_sites$campaigns, ~length(unique(.$type)) == length(campaign_type))
   
   # logic to get one or the other?
   downloaded_sites <- subset(downloaded_sites, has_all)
