@@ -128,7 +128,10 @@ small_server <- function(input, output, session) {
   ff <- reactive({mapselector::get_subset_site(site = downloaded_sites,
                                                site_code_sel = selsite())})
   
-  output$sel <- renderTable(head(ff()))
+  
+  observe(cat("foo", str(ff()), "\n")) %>% bindEvent(selsite())
+  output$sel <- renderTable(head(ff()[c("obs_species.taxa_name", 
+                                        "obs_species.value")]))
 }
 
 

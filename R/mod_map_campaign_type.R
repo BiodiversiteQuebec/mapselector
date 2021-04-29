@@ -32,7 +32,7 @@ mod_campaign_type_map_plot <- function(id){
 #'
 #' @noRd 
 #' @export
-mod_map_campaign_type_server <- function(id){
+mod_campaign_type_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     ## composed module for selecting a site or sites from the coleo database
@@ -53,9 +53,31 @@ mod_map_campaign_type_server <- function(id){
       sites_subset(),
       update_subset_sites(sites_subset(), "map"))
     
+    react <- reactiveValues(click = NULL, id = "mapclick")
+
+    observeEvent(input$map_marker_click,{
+      react$click <- input$map_marker_click$id
+    })
+    
+    ## if different campaigns are selected, then set map_marker_click to NULL
+    
+    observeEvent(input$selected_campaigns,{
+      react$click <- NULL})
+    
+    
+    # get the observations from the clicked site
+    clicked_site_data <- reactive({
+      # do nothing till user clicks!
+      req(react$click)
+      mapselector::get_subset_site(
+        site = sites_subset(),
+        site_code_sel = react$click)
+    })
+    
     return(list(
       camps = reactive(input$selected_campaigns),
-      click = reactive(input[[paste0("map", "_marker_click")]]$id)
+      click = reactive(react$click),
+      stdat = clicked_site_data
       ))
     
   })
@@ -74,17 +96,24 @@ testapp_map_campaign_type <- function(){
     mod_campaign_type_checkbox("ff"),
     textOutput("what"),
     textOutput("where"),
+    tableOutput("how_many"),
     mod_campaign_type_map_plot("ff")
   )
   
   server <-  function(input, output, session) {
     
-    out <- mod_map_campaign_type_server("ff")
+    out <- mod_campaign_type_server("ff")
     
     outtext <- reactive(paste("you just selected", paste(out$camps(), collapse = " ")))
     outclik <- reactive(paste("you just clicked the site", out$click()))
+    outobvs <- reactive({
+      req(out$click)
+      out$stdat()[c("obs_species.taxa_name", 
+                                      "obs_species.value")]
+      })
     output$what <- renderText(outtext())
     output$where <- renderText(outclik())
+    output$how_many <- renderTable(outobvs())
   }
   shinyApp(ui, server)
 }
