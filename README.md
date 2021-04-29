@@ -10,6 +10,7 @@ The goal of mapselector is to facilitate the process of giving all the dashboard
 
 ### quick reminder!
 
+test 
 if you have a data processing step that you think is useful to everyone, please add it to `mapselector` so that everyone can use it without rewriting it!
 
 If you have a UI approach that you think works really well, consider creating a module and also adding *that* to `mapselector`! Everyone (should) have write access to this repo. Feel free to create a branch and/or message Andrew.
