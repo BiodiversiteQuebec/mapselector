@@ -82,5 +82,5 @@ nbr_dec <- function(x) {
 make_leaflet_empty <- function() {  
   leaflet::leaflet(options = leaflet::leafletOptions(minZoom = 4), ) %>%
     leaflet::addTiles() %>% # Affichage du fond de carte
-    leaflet::fitBounds(lng1 = -79.76330, lat1 = 44.99136, lng2 = -56.93868, lat2 = 62.58191)
+    leaflet::fitBounds(lng1 = -79.76330, lat1 = 42.99136, lng2 = -56.93868, lat2 = 60.58191)
 }
