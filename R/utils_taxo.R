@@ -1,11 +1,10 @@
 
 #' Search for species photo and return url, attribution
 #' 
-#' This function adds the CERQ province names to any dataframe.
 #' 
 #' 
 #' @param name name to search by 
-#' @return the same dataframe with one new column, NOM_PROV_N. This new column contains the French names of the natural provinces of Quebec
+#' @return the photo url, thumbnail url and comment for the photo
 #' 
 #' @export
 
