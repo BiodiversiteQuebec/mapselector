@@ -167,6 +167,16 @@ pal <- c( "amphibiens" = "#56B4E9",
          "#999999")
 
 
+#' @export
+species_colors <- function(sp_cat){
+  if (sp_cat %in% names(pal)){
+    return(pal[[sp_cat]])
+  }else{
+    return("#999999")
+  }
+}
+
+
 #' Generate a div for the sliding explainer on the side
 #' 
 #' Write and store the text you want in `inst/app/www/` . 
