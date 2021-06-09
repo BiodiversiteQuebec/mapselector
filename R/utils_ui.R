@@ -161,7 +161,20 @@ pal <- c( "amphibiens" = "#56B4E9",
          "oiseaux"    =  "#E69F00", 
          "poissons"   =    "#0072B2", 
          "reptiles"   = "#009E73",
+         "arthropodes" = "#AA8222",
+         "mollusques" = "#158186",
+         "plantes" = "#6da824",
          "#999999")
+
+
+#' @export
+species_colors <- function(sp_cat){
+  if (sp_cat %in% names(pal)){
+    return(pal[[sp_cat]])
+  }else{
+    return("#999999")
+  }
+}
 
 
 #' Generate a div for the sliding explainer on the side
