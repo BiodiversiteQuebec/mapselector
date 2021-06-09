@@ -9,7 +9,7 @@
 #' @export
 
 get_species_photo <- function(name){
-  resp<-content(httr::GET('https://species.wikimedia.org/w/api.php',query=list(
+  resp<-httr::content(httr::GET('https://species.wikimedia.org/w/api.php',query=list(
   action="query",
   generator="images",
   prop="imageinfo",
