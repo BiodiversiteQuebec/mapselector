@@ -161,6 +161,7 @@ pal <- c( "amphibiens" = "#56B4E9",
          "oiseaux"    =  "#E69F00", 
          "poissons"   =    "#0072B2", 
          "reptiles"   = "#009E73",
+         "arthropodes" = "#AA8222"
          "#999999")
 
 
