@@ -2,13 +2,13 @@
 #' @export
 icon_colours <- function(){
   icon_options <- list(
-    lac             = list(ico = '<i class="fa fa-fish"     ></i>',    col = "darkblue"),
-    rivière         = list(ico = '<i class="fa fa-fish"     ></i>',    col = "blue"),
-    toundrique      = list(ico = '<i class="fa fa-leaf"     ></i>',    col = "orange"),
-    marais          = list(ico = '<i class="fa fa-frog"     ></i>',    col = "darkgreen"),
+    "lac"             = list(ico = '<i class="fa fa-fish"     ></i>',    col = "darkblue"),
+    "rivière"         = list(ico = '<i class="fa fa-fish"     ></i>',    col = "blue"),
+    "toundrique"      = list(ico = '<i class="fa fa-leaf"     ></i>',    col = "orange"),
+    "marais"          = list(ico = '<i class="fa fa-frog"     ></i>',    col = "darkgreen"),
     "marais côtier" = list(ico = '<i class="fa fa-water"    ></i>',    col = "cadetblue"),
-    forestier       = list(ico = '<i class="fa fa-tree"     ></i>',    col = "green"),
-    tourbière       = list(ico = '<i class="fa fa-seedling" ></i>',    col = "darkred")
+    "forestier"       = list(ico = '<i class="fa fa-tree"     ></i>',    col = "green"),
+    "tourbière"       = list(ico = '<i class="fa fa-seedling" ></i>',    col = "darkred")
   )
   
   return(icon_options)
