@@ -22,7 +22,7 @@ get_species_photo <- function(name){
   )),'parsed')
   if(any(names(resp)=='query')){
     for (i in 1:length(resp$query$pages)){
-      if(grepl("File:Commons-logo",resp$query$pages[i][[1]]$title, fixed = TRUE)==FALSE & grepl("File:Open Access",resp$query$pages[i][[1]]$title, fixed = TRUE)==FALSE & grepl("Disambig",resp$query$pages[i][[1]]$title, fixed = TRUE)==FALSE) {
+      if(grepl("File:Commons-logo",resp$query$pages[i][[1]]$title, fixed = TRUE)==FALSE & grepl("File:Open Access",resp$query$pages[i][[1]]$title, fixed = TRUE)==FALSE & grepl("Disambig",resp$query$pages[i][[1]]$title, fixed = TRUE)==FALSE & grepl("Closed_Access_logo_alternative",resp$query$pages[i][[1]]$title, fixed = TRUE)==FALSE) {
         l<-resp$query$pages[i][[1]]$imageinfo[[1]]
         return(list(url=l$url,thumb_url=l$thumburl, comment=l$comment))
       }
