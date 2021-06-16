@@ -8,7 +8,7 @@
 #'
 #' @importFrom shiny NS tagList 
 #' @export
-mod_campaign_type_checkbox <- function(id){
+mod_campaign_type_checkbox <- function(id, start_sel = c("acoustique", "odonates")){
   ns <- NS(id)
   tagList(
     checkboxGroupInput(ns("selected_campaigns"),
@@ -16,7 +16,7 @@ mod_campaign_type_checkbox <- function(id){
                        choices = c(
                          "végétation", "papilionidés", "acoustique", "insectes_sol", 
                          "mammifères", "odonates", "zooplancton"),
-                       selected = c("acoustique", "odonates"))
+                       selected = start_sel)
   )
 }
  
@@ -121,4 +121,4 @@ testapp_map_campaign_type <- function(){
 
 
 # reactlog::reactlog_enable()
-# testapp_map_campaign_type()
+testapp_map_campaign_type()
