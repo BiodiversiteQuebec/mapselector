@@ -64,6 +64,8 @@ mod_campaign_type_server <- function(id){
     observeEvent(input$selected_campaigns,{
       react$click <- NULL})
     
+    ## if 
+    
     
     # get the observations from the clicked site
     clicked_site_data <- reactive({
@@ -121,4 +123,3 @@ testapp_map_campaign_type <- function(){
 
 
 # reactlog::reactlog_enable()
-# testapp_map_campaign_type()
