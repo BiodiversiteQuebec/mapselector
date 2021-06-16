@@ -121,4 +121,4 @@ testapp_map_campaign_type <- function(){
 
 
 # reactlog::reactlog_enable()
-testapp_map_campaign_type()
+# testapp_map_campaign_type()

@@ -176,6 +176,27 @@ species_colors <- function(sp_cat){
   }
 }
 
+## colours
+
+icons <- c("amphibiens" = "<i class='fianimals animals-010-frog'></i>", 
+         "mammifères" =   "<i class='fianimals animals-001-mouse'></i>", 
+         "oiseaux"    =  "<i class='fianimals animals-020-bird:'></i>", 
+         "poissons"   =   "<i class='finature-collection nature-collection-fish'></i>", 
+         "reptiles"   = "<i class='fianimals animals-039-snake'></i>",
+         "arthropodes" = "<i class='finature nature-012-beetle'></i>",
+         "mollusques" = "<i class='finature nature-039-snail'></i>",
+         "plantes" = "<i class='finature-collection nature-collection-plant-1'></i>",
+         "#999999")
+
+#' @export
+species_icons <- function(sp_cat){
+  if (sp_cat %in% names(icons)){
+    return(icons[[sp_cat]])
+  }else{
+    return("#999999")
+  }
+}
+
 
 #' Generate a div for the sliding explainer on the side
 #' 
