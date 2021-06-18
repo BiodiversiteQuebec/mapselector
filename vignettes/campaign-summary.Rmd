@@ -1,0 +1,60 @@
+---
+title: "campaign-summary"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{campaign-summary}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(mapselector)
+```
+
+https://coleo.biodiversite-quebec.ca/api/v1/campaigns_summary
+
+```{r}
+site_df <- rcoleo:::query_gen("sites")
+
+library(dplyr)
+site_df %>% 
+  filter()
+
+downloaded_sites <- rcoleo::download_sites_sf()
+
+downloaded_sites
+
+camp_type <- downloaded_sites$campaigns %>% purrr::map("type") %>% purrr::flatten_chr() %>% unique()
+
+dput(camp_type)
+
+# filter this for campaigns of a certain type:
+
+just_one_kind <- purrr::map_if(downloaded_sites$campaigns,
+                               .p = ~ nrow(.)>0,
+                               .f = ~ subset(., .$type == "acoustique"))
+
+
+downloaded_sites_filtered <- downloaded_sites %>% 
+  mutate(campaigns  = subset_type_campaign(campaigns, "acoustique"))
+
+
+some_obs <- rcoleo::get_all_observations_from_a_site(
+  subset(
+    downloaded_sites_filtered, downloaded_sites_filtered$site_code == "111_115_H01"
+    ))
+
+# think critically about this part -- won't be the right columns for everybody
+some_obs$obs_resp[[1]] %>% 
+  with(., data.frame(date = created_at,
+                    espece = obs_species.taxa_name))
+
+```
+

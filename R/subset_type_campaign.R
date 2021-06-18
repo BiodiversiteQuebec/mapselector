@@ -14,9 +14,9 @@ subset_type_campaign <- function(campaign_list, campaign_type){
     "mammifères", "odonates", "zooplancton")))
   
   # filter down the list
-  filtered_list <- purrr::map_if(campaign_list,
-                                 .p = ~ nrow(.)>0,
-                                 .f = ~ subset(., .$type %in% campaign_type))
+  filtered_list <- purrr::modify_if(campaign_list, 
+                   .p = ~  is.data.frame(.),
+                   .f = ~ subset(., .$type %in% campaign_type))
   
   return(filtered_list)
 }
