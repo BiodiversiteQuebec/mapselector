@@ -218,7 +218,7 @@ campaign_types_colors <- function(cat){
 
 icons_campaigns <- c("végétation"="<i class='finature-collection nature-collection-plant-2'></i>",
                      "papilionidés"="<i class='fianimals animals-036-butterfly'></i>",
-                     "acoustique"="<i class='fianimals animals-007-bat'>Chauves-</i>",
+                     "acoustique"="<i class='fianimals animals-007-bat'></i>",
                      "odonates"="<i class='ficustom custom-dragonfly'></i>",
                      "insectes_sol"="<i class='finature nature-012-beetle'></i>",
                      "zooplancton"="<i class='ficustom custom-shrimp'></i>")
