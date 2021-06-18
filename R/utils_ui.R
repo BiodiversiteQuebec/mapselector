@@ -197,6 +197,41 @@ species_icons <- function(sp_cat){
   }
 }
 
+pal_campaign_types <- c( "amphibiens" = "#56B4E9", 
+                       "mammifères" = "#D55E00", 
+                       "papilionidés" = "#E69F00", 
+                       "zooplancton"  = "#0072B2", 
+                       "acoustique" = "#009E73",
+                       "arthropodes" = "#AA8222",
+                       "insectes_sol" = "#158186",
+                       "végétation" = "#6da824",
+                       "#999999")
+
+#' @export
+campaign_types_colors <- function(cat){
+  if (cat %in% names(pal_campaign_types)){
+    return(pal_campaign_types[[cat]])
+  }else{
+    return("#999999")
+  }
+}
+
+icons_campaigns <- c("végétation"="<i class='finature-collection nature-collection-plant-2'>Végétation</i>",
+                     "papilionidés"="<i class='fianimals animals-036-butterfly'>Papillons</i>",
+                     "acoustique"="<i class='fianimals animals-007-bat'>Chauves-souris</i>",
+                     "odonates"="<i class='ficustom custom-dragonfly'>Odonates</i>",
+                     "insectes_sol"="<i class='finature nature-012-beetle'>Insectes du sol</i>",
+                     "zooplancton"="<i class='ficustom custom-shrimp'>Zooplancton</i>")
+
+#' @export
+campaign_types_icons <- function(cat){
+  if (cat %in% names(icons_campaigns)){
+    return(icons_campaigns[[cat]])
+  }else{
+    return("#999999")
+  }
+}
+
 
 #' Generate a div for the sliding explainer on the side
 #' 
