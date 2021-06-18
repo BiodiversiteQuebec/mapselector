@@ -216,12 +216,12 @@ campaign_types_colors <- function(cat){
   }
 }
 
-icons_campaigns <- c("végétation"="<i class='finature-collection nature-collection-plant-2'>Végétation</i>",
-                     "papilionidés"="<i class='fianimals animals-036-butterfly'>Papillons</i>",
-                     "acoustique"="<i class='fianimals animals-007-bat'>Chauves-souris</i>",
-                     "odonates"="<i class='ficustom custom-dragonfly'>Odonates</i>",
-                     "insectes_sol"="<i class='finature nature-012-beetle'>Insectes du sol</i>",
-                     "zooplancton"="<i class='ficustom custom-shrimp'>Zooplancton</i>")
+icons_campaigns <- c("végétation"="<i class='finature-collection nature-collection-plant-2'></i>",
+                     "papilionidés"="<i class='fianimals animals-036-butterfly'></i>",
+                     "acoustique"="<i class='fianimals animals-007-bat'>Chauves-</i>",
+                     "odonates"="<i class='ficustom custom-dragonfly'></i>",
+                     "insectes_sol"="<i class='finature nature-012-beetle'></i>",
+                     "zooplancton"="<i class='ficustom custom-shrimp'></i>")
 
 #' @export
 campaign_types_icons <- function(cat){
@@ -232,6 +232,22 @@ campaign_types_icons <- function(cat){
   }
 }
 
+
+campaigns_types_formatted <- c("végétation"="Végétation",
+                     "papilionidés"="Papillons",
+                     "acoustique"="Chauves-souris",
+                     "odonates"="Odonates",
+                     "insectes_sol"="Insectes du sol",
+                     "zooplancton"="Zooplancton")
+
+#' @export
+campaign_types_format <- function(cat){
+  if (cat %in% names(campaigns_types_formatted)){
+    return(campaigns_types_formatted[[cat]])
+  }else{
+    return(FALSE)
+  }
+}
 
 #' Generate a div for the sliding explainer on the side
 #' 
