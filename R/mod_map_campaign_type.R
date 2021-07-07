@@ -8,7 +8,8 @@
 #'
 #' @importFrom shiny NS tagList 
 #' @export
-mod_campaign_type_checkbox <- function(id, start_sel = c("acoustique", "odonates")){
+mod_campaign_type_checkbox <- function(id#, start_sel = c("acoustique", "odonates")
+                                       ){
   ns <- NS(id)
   tagList(
     checkboxGroupInput(ns("selected_campaigns"),
@@ -16,7 +17,10 @@ mod_campaign_type_checkbox <- function(id, start_sel = c("acoustique", "odonates
                        choices = c(
                          "végétation", "papilionidés", "acoustique", "insectes_sol", 
                          "mammifères", "odonates", "zooplancton"),
-                       selected = start_sel)
+                        selected = c(
+                       "végétation", "papilionidés", "acoustique", "insectes_sol", 
+                       "mammifères", "odonates", "zooplancton")
+                       )
   )
 }
  
@@ -37,44 +41,60 @@ mod_campaign_type_server <- function(id){
     ns <- session$ns
     ## composed module for selecting a site or sites from the coleo database
     
-    rcoleo_sites_sf <- rcoleo::download_sites_sf(token = rcoleo:::bearer())
+    rcoleo_sites_sf_raw <- rcoleo::download_sites_sf(token = rcoleo:::bearer())
+    
+    rcoleo_sites_sf <- drop_empty_campaigns(rcoleo_sites_sf_raw)
     
     sites_subset <- reactive({
       mapselector::subset_site_df(downloaded_sites = rcoleo_sites_sf,
                                   campaign_type = input$selected_campaigns)
     })
     
-    # or could be passing the map_id in..
+    # make a blank map
     output$map <- leaflet::renderLeaflet(make_leaflet_empty())
     
+    # update this map with the markers defined in the filtered data.frame
     # this works because update_subset_sites calls leafletProxy, which 
     # knows that it is inside a module and adds the module id
     observeEvent(
       sites_subset(),
       update_subset_sites(sites_subset(), "map"))
     
-    react <- reactiveValues(click = NULL, id = "mapclick")
+    # create a reactive val to catch the id of the site you click on
+    react <- reactiveValues(click = NULL)
 
     observeEvent(input$map_marker_click,{
       react$click <- input$map_marker_click$id
     })
     
-    ## if different campaigns are selected, then set map_marker_click to NULL
+    ## if different campaigns are selected, then set react$click to NULL 
     
     observeEvent(input$selected_campaigns,{
       react$click <- NULL})
     
-    ## if 
+    ## rework to also set to NULL when you click off the modal?
+    
+    # set back to NULL with timed invalidation?
+    timer <- reactiveTimer(500)
+    
+    observe({ 
+      timer
+      react$click <- NULL})
     
     
     # get the observations from the clicked site
-    clicked_site_data <- reactive({
+    # this part could be anything -- could even simply be looking up the display name
+    
+    clicked_site_data <- eventReactive(
       # do nothing till user clicks!
-      req(react$click)
-      mapselector::get_subset_site(
-        site = sites_subset(),
-        site_code_sel = react$click)
-    })
+      input$map_marker_click, {
+        mapselector::get_subset_site(
+          site = sites_subset(),
+          site_code_sel = react$click)
+      }
+    )
+
+    
     
     return(list(
       camps = reactive(input$selected_campaigns),

@@ -19,7 +19,7 @@ test_that("mod_campaign_type module works", {
       outtext <- reactive(paste("you just selected", paste(out$camps(), collapse = " ")))
       outclik <- reactive(paste("you just clicked the site", out$click()))
       outobvs <- reactive({
-        req(out$click)
+        req(out$stdat)
         out$stdat()[c("obs_species.taxa_name", 
                       "obs_species.value")]
       })

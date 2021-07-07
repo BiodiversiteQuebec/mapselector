@@ -65,6 +65,7 @@ usethis::use_vignette("ouranos_vis")
 usethis::use_vignette(
   "campaign-summary"
 )
+usethis::use_vignette("map_layer_selection")
 devtools::build_vignettes()
 
 ## Code Coverage----

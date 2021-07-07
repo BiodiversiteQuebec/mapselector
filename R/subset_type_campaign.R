@@ -13,12 +13,18 @@ subset_type_campaign <- function(campaign_list, campaign_type){
     "végétation", "papilionidés", "acoustique", "insectes_sol", 
     "mammifères", "odonates", "zooplancton")))
   
-  # filter down the list
-  filtered_list <- purrr::modify_if(campaign_list, 
-                   .p = ~  is.data.frame(.),
-                   .f = ~ subset(., .$type %in% campaign_type))
+  if (!is.null(campaign_type)){
+    ## DO NOT filter if no campaigns selected!! omg!!! 
+    
+    # filter down the list
+    output_list <- purrr::modify_if(campaign_list, 
+                                      .p = ~  is.data.frame(.),
+                                      .f = ~ subset(., .$type %in% campaign_type))
+  } else {
+    output_list <- campaign_list
+  }
   
-  return(filtered_list)
+  return(output_list)
 }
 
 
@@ -31,22 +37,24 @@ subset_type_campaign <- function(campaign_list, campaign_type){
 #'
 #' @return
 #' @export
-subset_site_df <- function(downloaded_sites, campaign_type = "acoustique"){
+subset_site_df <- function(downloaded_sites, campaign_type = NULL){
   
-  # req(campaign_type)
-  # if (campaign_type != "tous") {
+  # just replace the campaign type column with a filtered one.
   downloaded_sites$campaigns <- subset_type_campaign(downloaded_sites$campaigns, campaign_type)
   
+  # 
+  # does it have ALL the ones selected?
+# 
+#   has_all <- purrr::map_lgl(downloaded_sites$campaigns, ~length(unique(.$type)) == length(campaign_type))
+# 
+#   # does it have ANY of the ones selected?
+#   
+#   
+#   # logic to get one or the other?
+#   downloaded_sites <- subset(downloaded_sites, has_all)
   
-  # has_obs <- purrr::map_lgl(downloaded_sites$campaigns, ~ nrow(.) > 0)
+  downloaded_sites <- drop_empty_campaigns(downloaded_sites)
   
-  ## or, does it have ALL the ones selected?
-  
-  has_all <- purrr::map_lgl(downloaded_sites$campaigns, ~length(unique(.$type)) == length(campaign_type))
-  
-  # logic to get one or the other?
-  downloaded_sites <- subset(downloaded_sites, has_all)
-  # }
   
   return(downloaded_sites)
 }

@@ -4,7 +4,7 @@
 \alias{subset_site_df}
 \title{subset the dataframe of sites to sites with specific observations}
 \usage{
-subset_site_df(downloaded_sites, campaign_type = "acoustique")
+subset_site_df(downloaded_sites, campaign_type = NULL)
 }
 \arguments{
 \item{downloaded_sites}{data frame of sites}
