@@ -1,0 +1,335 @@
+---
+title: "map_layer_selection"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{map_layer_selection}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+```{r setup}
+library(mapselector)
+```
+
+
+```{r}
+library(dplyr)
+library(leaflet)
+
+data <- data.frame(Name = c("A", "A", "A", "B", "B", "C", "C", "C"),
+                   Value1 = c(12,43,54,34,23,77,44,22),
+                   Value2 = c(6,5,2,7,5,6,4,3),
+                   Lat = c(51.1, 51.6, 57.3, 52.4, 56.3, 54.3, 60.4, 49.2),
+                   Lon = c(5, -3, -2, -1, 4, 3, -5, 0))
+data %>%
+  leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addCircles(lat=~Lat, lng=~Lon, radius = ~Value1*1000, group=c(~Name, "Value1")) %>%
+  addCircles(lat=~Lat, lng=~Lon, radius = ~Value2, group=c(~Name, "Value2")) %>%
+  addLayersControl(
+    baseGroups = c("Value1", "Value2"),
+    overlayGroups = c("A", "B", "C"),
+    options = layersControlOptions(collapsed = F)
+  )
+
+
+## Stackoverflow
+
+library(dplyr)
+library(leaflet)
+library(htmlwidgets)
+
+data <- data.frame(ID = c("1", "2","3","4","5","6","7","8"),
+                   Name = c("A", "A", "A", "B", "B", "C", "C", "C"),
+                   Value1 = c(12,43,54,34,23,77,44,22),
+                   Value2 = c(6,5,2,7,5,6,4,3),
+                   Lat = c(51.1, 51.6, 57.3, 52.4, 56.3, 54.3, 60.4, 49.2),
+                   Lon = c(5, -3, -2, -1, 4, 3, -5, 0))
+data %>%
+  leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addCircles(lat=~Lat, lng=~Lon, radius = ~Value1*1000, group=~Name, label=~Name, popup=~as.character(Value1), layerId = ~paste(ID,"Value1", sep="")) %>%
+  addCircles(lat=~Lat, lng=~Lon, radius = ~Value2*5000, group=~Name, label=~Name, popup=~as.character(Value2), layerId = ~paste(ID,"Value2", sep="")) %>%
+  addLayersControl(
+    baseGroups = c("Value1", "Value2"),
+    overlayGroups = c("A", "B", "C"),
+    options = layersControlOptions(collapsed = F)
+  ) %>%
+  htmlwidgets::onRender("
+    function(el, x) {
+      var myMap = this;
+      var baseLayer = 'Value1';
+      myMap.eachLayer(function(layer){
+        var id = layer.options.layerId;
+        if (id){
+          if ('Value1' !== id.substring(1,)){
+            layer.getElement().style.display = 'none';
+          }
+        }
+      })
+      console.log(myMap.baselayer);
+      myMap.on('baselayerchange',
+        function (e) {
+          baseLayer=e.name;
+          myMap.eachLayer(function (layer) {
+              var id = layer.options.layerId;
+              if (id){
+                if (e.name !== id.substring(1,)){
+                  layer.getElement().style.display = 'none';
+                  layer.closePopup();
+                }
+                if (e.name === id.substring(1,)){
+                  layer.getElement().style.display = 'block';
+                }
+              }
+
+          });
+        })
+        myMap.on('overlayadd', function(e){
+          myMap.eachLayer(function(layer){
+            var id = layer.options.layerId;
+            if (id){
+                if (baseLayer !== id.substring(1,)){
+                  layer.getElement().style.display = 'none';
+                }
+            }    
+          })
+        })
+    }")
+
+```
+
+
+Now observe this example from the Shiny page:
+
+```{r rstudio-example}
+library(shiny)
+library(leaflet)
+library(RColorBrewer)
+
+ui <- bootstrapPage(
+  tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
+  leafletOutput("map", width = "100%", height = "100%"),
+  absolutePanel(top = 10, right = 10,
+    sliderInput("range", "Magnitudes", min(quakes$mag), max(quakes$mag),
+      value = range(quakes$mag), step = 0.1
+    ),
+    selectInput("colors", "Color Scheme",
+      rownames(subset(brewer.pal.info, category %in% c("seq", "div")))
+    ),
+    checkboxInput("legend", "Show legend", TRUE)
+  )
+)
+
+server <- function(input, output, session) {
+
+  # Reactive expression for the data subsetted to what the user selected
+  filteredData <- reactive({
+    quakes[quakes$mag >= input$range[1] & quakes$mag <= input$range[2],]
+  })
+
+  # This reactive expression represents the palette function,
+  # which changes as the user makes selections in UI.
+  colorpal <- reactive({
+    colorNumeric(input$colors, quakes$mag)
+  })
+
+  output$map <- renderLeaflet({
+    # Use leaflet() here, and only include aspects of the map that
+    # won't need to change dynamically (at least, not unless the
+    # entire map is being torn down and recreated).
+    leaflet(quakes) %>% addTiles() %>%
+      fitBounds(~min(long), ~min(lat), ~max(long), ~max(lat))
+  })
+
+  # Incremental changes to the map (in this case, replacing the
+  # circles when a new color is chosen) should be performed in
+  # an observer. Each independent set of things that can change
+  # should be managed in its own observer.
+  observe({
+    pal <- colorpal()
+
+    leafletProxy("map", data = filteredData()) %>%
+      clearShapes() %>%
+      addCircles(radius = ~10^mag/10, weight = 1, color = "#777777",
+        fillColor = ~pal(mag), fillOpacity = 0.7, popup = ~paste(mag)
+      )
+  })
+
+  # Use a separate observer to recreate the legend as needed.
+  observe({
+    proxy <- leafletProxy("map", data = quakes)
+
+    # Remove any existing legend, and only if the legend is
+    # enabled, create a new one.
+    proxy %>% clearControls()
+    if (input$legend) {
+      pal <- colorpal()
+      proxy %>% addLegend(position = "bottomright",
+        pal = pal, values = ~mag
+      )
+    }
+  })
+}
+
+shinyApp(ui, server)
+```
+
+
+First, put the example from SO into a similar Shiny app structure
+
+```{r}
+
+library(shiny)
+library(leaflet)
+library(RColorBrewer)
+
+ui <- bootstrapPage(
+  tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
+  leafletOutput("map", width = "100%", height = "100%")
+)
+
+server <- function(input, output, session) {
+  
+  data <- data.frame(ID = c("1", "2","3","4","5","6","7","8"),
+                     Name = c("A", "A", "A", "B", "B", "C", "C", "C"),
+                     Value1 = c(12,43,54,34,23,77,44,22),
+                     Value2 = c(6,5,2,7,5,6,4,3),
+                     Lat = c(51.1, 51.6, 57.3, 52.4, 56.3, 54.3, 60.4, 49.2),
+                     Lon = c(5, -3, -2, -1, 4, 3, -5, 0))
+  
+  output$map <- renderLeaflet({
+    data %>%
+      leaflet() %>%
+      addProviderTiles(providers$CartoDB.Positron) %>%
+      addCircles(lat = ~Lat,
+                 lng = ~Lon, 
+                 radius = ~Value1*1000,
+                 group = ~Name, 
+                 label = ~Name,
+                 popup = ~as.character(Value1),
+                 layerId = ~paste(ID,"Value1", sep=""))
+  })
+    
+}
+
+
+shinyApp(ui, server)
+```
+
+So far so good. now, extend with leafletProxy
+
+```{r}
+
+library(shiny)
+library(leaflet)
+library(RColorBrewer)
+
+ui <- bootstrapPage(
+  tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
+  leafletOutput("map", width = "100%", height = "100%"),
+  
+)
+
+server <- function(input, output, session) {
+  
+  data_df <- data.frame(ID = c("1", "2","3","4","5","6","7","8"),
+                     Name = c("A", "A", "A", "B", "B", "C", "C", "C"),
+                     Value1 = c(12,43,54,34,23,77,44,22),
+                     Value2 = c(6,5,2,7,5,6,4,3),
+                     Lat = c(51.1, 51.6, 57.3, 52.4, 56.3, 54.3, 60.4, 49.2),
+                     Lon = c(5, -3, -2, -1, 4, 3, -5, 0))
+  
+  output$map <- renderLeaflet({
+      leaflet(data_df) %>%
+      addTiles() %>%
+      fitBounds(~min(Lon), ~min(Lat), ~max(Lon), ~max(Lat)) %>% 
+      addControl(radioButtons("var_chosen", label = "Which variable?", choices = c("Value 1", "Value 2")),
+                 position = "topright")
+  })
+  
+  leafletProxy("map") %>%
+      clearShapes() %>% 
+      addCircles(lat = ~Lat,
+                 lng = ~Lon,
+                 radius = ~Value1*1000,
+                 group = ~Name,
+                 label = ~Name,
+                 popup = ~as.character(Value1),
+                 data = data_df)
+}
+
+shinyApp(ui, server)
+```
+
+Now, make an observer of the chosen variable that reveals one type of marker or the other:
+
+
+```{r}
+
+library(shiny)
+library(leaflet)
+library(RColorBrewer)
+
+ui <- bootstrapPage(
+  tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
+  leafletOutput("map", width = "100%", height = "100%")
+)
+
+server <- function(input, output, session) {
+  
+  data_df <- data.frame(ID = c("1", "2","3","4","5","6","7","8"),
+                     Name = c("A", "A", "A", "B", "B", "C", "C", "C"),
+                     Value1 = c(12,43,54,34,23,77,44,22),
+                     Value2 = c(6,5,2,7,5,6,4,3),
+                     Lat = c(51.1, 51.6, 57.3, 52.4, 56.3, 54.3, 60.4, 49.2),
+                     Lon = c(5, -3, -2, -1, 4, 3, -5, 0))
+  
+  output$map <- renderLeaflet({
+      leaflet(data_df) %>%
+      addTiles() %>%
+      fitBounds(~min(Lon), ~min(Lat), ~max(Lon), ~max(Lat)) %>% 
+      addControl(radioButtons("var_chosen", label = "Which variable?", 
+                              choices = c("Value #1" = "Value1",
+                                          "Value #2" = "Value2")),
+                 position = "topright")
+  })
+  
+  # necessary because (apparently) the control isn't present until the map is
+  rv <- reactiveValues(value_chosen = "Value1")
+  
+  observeEvent(input$var_chosen,{
+      rv$value_chosen <- input$var_chosen
+    })
+  
+  rad_reactive <- reactive({
+    switch(rv$value_chosen,
+           "Value1" = data_df[["Value1"]]*1000,
+           "Value2" = data_df[["Value2"]]*5000)
+  })
+  
+  observe({
+    leafletProxy("map") %>%
+      clearShapes() %>%
+      addCircles(lat = ~Lat,
+                 lng = ~Lon,
+                 radius = rad_reactive(),
+                 group = ~Name,
+                 label = ~Name,
+                 popup = ~as.character(data_df[[rv$value_chosen]]),
+                 data = data_df)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+
