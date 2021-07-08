@@ -1,3 +1,10 @@
+
+#' drop any empty campaigns
+#'
+#' @param site_df data.frame of site information, as returned by rcoleo::get_sites
+#'
+#' @return data.frame with no empty campaigns
+#' @export
 drop_empty_campaigns <- function(site_df) {
   
   no_empty_lists <- subset(site_df,
