@@ -92,10 +92,10 @@ dash_title <- function(title = "Analyse de raréfaction"){
     fillCol(
       tags$div(
         class = "left-header",
+        tags$div(class = "dash-title", title)
         tags$div(class = "logo", 
                  tags$img(src = "https://coleo.biodiversite-quebec.ca/apps/shiny-src/Biodiversite_Quebec_logo_2_lignes.png",
                           height = "60px")),
-        tags$div(class = "dash-title", title)
       ),
       hover = "Coléo"),
     height = "100px",
