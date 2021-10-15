@@ -273,7 +273,7 @@ marcel <- function(filename){
 #' @return htmlDependency on font-awesome
 #' @export
 fa_dependency <- function(){
-  htmltools::htmlDependency("font-awesome", 
-                            "5.13.0", "www/shared/fontawesome", package = "shiny", 
-                            stylesheet = c("css/all.min.css", "css/v4-shims.min.css"))
+  #htmltools::htmlDependency("font-awesome", 
+  #                          "5.13.0", "www/shared/fontawesome", package = "shiny", 
+  #                          stylesheet = c("css/all.min.css", "css/v4-shims.min.css"))
 }
