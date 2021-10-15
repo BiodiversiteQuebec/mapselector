@@ -103,6 +103,7 @@ dash_sidebar <- function(badge_function, ...){
               id = "closebtn-div",
               tags$a(href = "javascript:void(0)",
                      id = "closebtn",'<')),
+            dash_title(),
             badge_function,
             widgets(...)
           ))
@@ -130,7 +131,6 @@ tableau_de_bord <- function(titre = dash_title(),
                 tags$script(src = "https://coleo.biodiversite-quebec.ca/apps/shiny-src/tableau.js"),
                 fa_dependency()
     ),
-    titre,
     fillRow(
       id = "main-row",
       flex = c(2,8),
