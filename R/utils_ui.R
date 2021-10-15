@@ -87,19 +87,11 @@ tab_gen <- function(title = "Data download", outputFunction = downloadButton, id
 
 #' @export
 dash_title <- function(title = "Analyse de raréfaction"){
-  fillRow(
-    flex = c(3,1,1),
     fillCol(
       tags$div(
         class = "left-header",
-        tags$div(class = "logo", 
-                 tags$img(src = "https://coleo.biodiversite-quebec.ca/apps/shiny-src/Biodiversite_Quebec_logo_2_lignes.png",
-                          height = "60px")),
         tags$div(class = "dash-title", title)
-      ),
-      hover = "Coléo"),
-    height = "120px",
-    class= "top-header")
+      )
 }
 
   #' @export
