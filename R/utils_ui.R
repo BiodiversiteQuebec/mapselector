@@ -92,6 +92,7 @@ dash_title <- function(title = "Analyse de raréfaction"){
         class = "left-header",
         tags$div(class = "dash-title", title)
       )
+    )
 }
 
   #' @export
