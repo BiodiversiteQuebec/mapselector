@@ -87,7 +87,7 @@ tab_gen <- function(title = "Data download", outputFunction = downloadButton, id
 
 #' @export
 dash_title <- function(title = "Analyse de raréfaction"){
-    fillCol(
+    column(
       tags$div(
         class = "left-header",
         tags$div(class = "dash-title", title)
@@ -97,7 +97,7 @@ dash_title <- function(title = "Analyse de raréfaction"){
 
   #' @export
 dash_sidebar <- function(badge_function, ...){
-  fillCol(id = "sidebar",
+  column(id = "sidebar",
           tags$div(
             tags$div(
               id = "closebtn-div",
