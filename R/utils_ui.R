@@ -87,23 +87,21 @@ tab_gen <- function(title = "Data download", outputFunction = downloadButton, id
 
 #' @export
 dash_title <- function(title = "Analyse de raréfaction"){
-    fillCol(
-      tags$div(
-        class = "left-header",
-        tags$div(class = "dash-title", title)
-      )
-    )
+  tags$div(
+    class = "left-header",
+    tags$div(class = "dash-title", title)
+  )
 }
 
   #' @export
-dash_sidebar <- function(badge_function, ...){
+dash_sidebar <- function(title, badge_function, ...){
   fillCol(id = "sidebar",
           tags$div(
             tags$div(
               id = "closebtn-div",
               tags$a(href = "javascript:void(0)",
                      id = "closebtn",'<')),
-            dash_title(),
+            title,
             badge_function,
             widgets(...)
           ))
@@ -113,6 +111,7 @@ dash_sidebar <- function(badge_function, ...){
 tableau_de_bord <- function(titre = dash_title(), 
                             sidebar = 
                               dash_sidebar(
+                                titre,
                                 badge(),
                                 sliderInput(
                                   "obs",
