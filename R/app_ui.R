@@ -10,7 +10,7 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     tableau_de_bord(
       dash_sidebar(
-        dash_title(title = "Bonjour Quebec"),
+        dash_title(title = "Bonjour Quebec",icon="bq_icons_planet"),
         badge(),
         textInput("name", "What's your name?"),
         mod_modal_helpbutton_ui("info1", "Jargon")
