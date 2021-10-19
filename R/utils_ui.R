@@ -87,10 +87,7 @@ tab_gen <- function(title = "Data download", outputFunction = downloadButton, id
 
 #' @export
 dash_title <- function(title = "Analyse de raréfaction"){
-  tags$div(
-    class = "left-header",
     tags$div(class = "dash-title", title)
-  )
 }
 
   #' @export
@@ -108,10 +105,9 @@ dash_sidebar <- function(title, badge_function, ...){
 }
 
 #' @export
-tableau_de_bord <- function(titre = dash_title(), 
-                            sidebar = 
+tableau_de_bord <- function(sidebar = 
                               dash_sidebar(
-                                titre,
+                                titre = dash_title(),
                                 badge(),
                                 sliderInput(
                                   "obs",
@@ -133,7 +129,16 @@ tableau_de_bord <- function(titre = dash_title(),
     fillRow(
       id = "main-row",
       flex = c(2,8),
-      sidebar,
+      sidebar= dash_sidebar(
+                                badge(),
+                                sliderInput(
+                                  "obs",
+                                  "Nombre d'observations:",
+                                  min = 0,
+                                  max = 1000,
+                                  value = 500),
+                                textInput("name", "What's your name?")
+                              ),
       tabs)
   )
 }
