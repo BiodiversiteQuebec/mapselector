@@ -171,8 +171,8 @@ icons <- c("amphibiens" = "<i class='fianimals animals-010-frog'></i>",
          "oiseaux"    =  "<i class='fianimals animals-020-bird:'></i>", 
          "poissons"   =   "<i class='finature-collection nature-collection-fish'></i>", 
          "reptiles"   = "<i class='fianimals animals-039-snake'></i>",
-         "arthropodes" = "<i class='finature nature-012-beetle'></i>",
-         "mollusques" = "<i class='finature nature-039-snail'></i>",
+         "arthropodes" = "<i class='finature nature-cute-012-beetle'></i>",
+         "mollusques" = "<i class='finature nature-cute-039-snail'></i>",
          "plantes" = "<i class='finature-collection nature-collection-plant-1'></i>",
          "#999999")
 
@@ -208,7 +208,7 @@ icons_campaigns <- c("végétation"="<i class='finature-collection nature-collec
                      "papilionidés"="<i class='fianimals animals-036-butterfly'></i>",
                      "acoustique"="<i class='fianimals animals-007-bat'></i>",
                      "odonates"="<i class='ficustom custom-dragonfly'></i>",
-                     "insectes_sol"="<i class='finature nature-012-beetle'></i>",
+                     "insectes_sol"="<i class='finature nature-cute-012-beetle'></i>",
                      "zooplancton"="<i class='ficustom custom-shrimp'></i>")
 
 #' @export

@@ -2,13 +2,13 @@
 #' @export
 icon_colours <- function(){
   icon_options <- list(
-    "lac"             = list(ico = '<i class="fa fa-fish"     ></i>',    col = "darkblue"),
-    "rivière"         = list(ico = '<i class="fa fa-fish"     ></i>',    col = "blue"),
-    "toundrique"      = list(ico = '<i class="fa fa-leaf"     ></i>',    col = "orange"),
-    "marais"          = list(ico = '<i class="fa fa-frog"     ></i>',    col = "darkgreen"),
-    "marais côtier" = list(ico = '<i class="fa fa-water"    ></i>',    col = "cadetblue"),
-    "forestier"       = list(ico = '<i class="fa fa-tree"     ></i>',    col = "green"),
-    "tourbière"       = list(ico = '<i class="fa fa-seedling" ></i>',    col = "darkred")
+    "lac"             = list(ico = '<i class="bq-icons icon-bq_icons_fish" ></i>',    col = "darkblue"),
+    "rivière"         = list(ico = '<i class="nature-collection nature-collection-watering" ></i>',    col = "blue"),
+    "toundrique"      = list(ico = '<i class="bq-icons icon-bq_icons_leaf" ></i>',    col = "orange"),
+    "marais"          = list(ico = '<i class="bq-icons icon-bq_icons_cattails" ></i>',    col = "darkgreen"),
+    "marais côtier" = list(ico = '<i class="bq-icons icon-bq_icons_water" ></i>',    col = "cadetblue"),
+    "forestier"       = list(ico = '<i class="bq-icons icon-bq_icons_conifer"     ></i>',    col = "green"),
+    "tourbière"       = list(ico = '<i class="bq-icons icon-bq_icons_leaf" ></i>',    col = "darkred")
   )
   
   return(icon_options)
