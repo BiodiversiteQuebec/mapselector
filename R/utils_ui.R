@@ -87,7 +87,7 @@ tab_gen <- function(title = "Data download", outputFunction = downloadButton, id
 
 #' @export
 dash_title <- function(title = "Analyse de raréfaction",icon="icon-bq_icons_planet"){
-    tags$div(tags$div(class = paste("dash-icon",icon)),tags$div(class = "dash-title", title))
+    tags$div(class="title-icon",tags$div(class = paste("dash-icon",icon)),tags$div(class = "dash-title", title))
 }
 
   #' @export
