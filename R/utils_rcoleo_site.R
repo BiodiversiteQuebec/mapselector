@@ -8,7 +8,7 @@ icon_colours <- function(){
     "marais"          = list(ico = '<i class="bq-icons icon-bq_icons_cattails" ></i>',    col = "darkgreen"),
     "marais côtier" = list(ico = '<i class="bq-icons icon-bq_icons_water" ></i>',    col = "cadetblue"),
     "forestier"       = list(ico = '<i class="bq-icons icon-bq_icons_conifer"     ></i>',    col = "green"),
-    "tourbière"       = list(ico = '<i class="bq-icons icon-bq_icons_leaf" ></i>',    col = "darkred")
+    "tourbière"       = list(ico = '<i class="nature-collection nature-collection-reed-bed-1" ></i>',    col = "darkred")
   )
   
   return(icon_options)
