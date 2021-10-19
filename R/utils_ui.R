@@ -130,6 +130,7 @@ tableau_de_bord <- function(sidebar =
       id = "main-row",
       flex = c(2,8),
       sidebar= dash_sidebar(
+                                dash_title(),
                                 badge(),
                                 sliderInput(
                                   "obs",
