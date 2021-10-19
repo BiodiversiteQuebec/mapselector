@@ -107,7 +107,7 @@ dash_sidebar <- function(title, badge_function, ...){
 #' @export
 tableau_de_bord <- function(sidebar = 
                               dash_sidebar(
-                                titre = dash_title(),
+                                dash_title(),
                                 badge(),
                                 sliderInput(
                                   "obs",
