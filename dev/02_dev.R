@@ -21,6 +21,7 @@ usethis::use_package( "assertthat", type = "Suggests")
 usethis::use_package( "sf", type = "Suggests")
 usethis::use_package("plotly")
 usethis::use_package("purrr")
+usethis::use_package("shinyWidgets")
 
 ## Add modules ----
 ## Add modules ----
