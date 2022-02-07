@@ -17,7 +17,8 @@ modal_tab_format <- function(region, title_fmt, ..., type = "tabs"){
   modaltitle <- sprintf(title_fmt, region)
   modalDialog(
     h3(modaltitle),
-    add_class_tabs(prefix = "modaltab-", ..., type = type)
+    add_class_tabs(prefix = "modaltab-", ..., type = type),
+    footer = modalButton("Quitter")
   )
 }
 

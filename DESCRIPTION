@@ -1,6 +1,6 @@
 Package: mapselector
 Title: Map selector module for Shiny
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: person('Andrew', 'MacDonald', email = 'a.a.m.macdonald@gmail.com', role = c('cre', 'aut'))
 Description: Its a simple module to make a map for Shiny, plus a few helper functions to help you use a map as a selector in your Shiny App.
 License: MIT + file LICENSE
