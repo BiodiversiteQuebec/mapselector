@@ -28,7 +28,7 @@ mod_campaign_type_checkbox <- function(id#, start_sel = c("acoustique", "odonate
 mod_campaign_type_map_plot <- function(id){
   ns <- NS(id)
   tagList(
-    leaflet::leafletOutput(ns("map"))
+    shinycssloaders::withSpinner(leaflet::leafletOutput(ns("map")),proxy.height = '100%',color='#538887',type=7)
   )
 }
    
